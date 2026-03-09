@@ -56,8 +56,8 @@ export default function SignUpPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-bg flex flex-col">
-        <div className="px-6 h-14 flex items-center border-b border-border">
+      <div className="min-h-screen bg-base flex flex-col">
+        <div className="px-6 h-14 flex items-center border-b border-stroke">
           <Link
             href="/"
             className="flex items-center gap-2 text-muted hover:text-fg transition"
@@ -92,9 +92,9 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg flex flex-col">
+    <div className="min-h-screen bg-base flex flex-col">
       {/* Minimal nav */}
-      <div className="px-6 h-14 flex items-center border-b border-border">
+      <div className="px-6 h-14 flex items-center border-b border-stroke">
         <Link
           href="/"
           className="flex items-center gap-2 text-muted hover:text-fg transition"
@@ -109,7 +109,7 @@ export default function SignUpPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(186,255,41,0.2)]">
-              <span className="text-bg text-xl font-black">&#9672;</span>
+              <span className="text-[#06060E] text-xl font-black">&#9672;</span>
             </div>
             <h1 className="font-serif text-2xl font-bold text-fg mb-2">
               Create your account
@@ -122,7 +122,7 @@ export default function SignUpPage() {
           {/* Google OAuth */}
           <button
             onClick={handleGoogleSignUp}
-            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-surface border border-border hover:border-border-hi rounded-xl text-fg text-sm font-medium transition-all mb-6"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-surface border border-stroke hover:border-stroke-hi rounded-xl text-fg text-sm font-medium transition-all mb-6"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -147,9 +147,9 @@ export default function SignUpPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-4 mb-6">
-            <div className="flex-1 h-px bg-border" />
+            <div className="flex-1 h-px bg-stroke" />
             <span className="text-muted text-xs font-mono">OR</span>
-            <div className="flex-1 h-px bg-border" />
+            <div className="flex-1 h-px bg-stroke" />
           </div>
 
           {/* Form */}
@@ -167,7 +167,7 @@ export default function SignUpPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-surface border border-border focus:border-accent/50 rounded-xl pl-10 pr-4 py-3 text-fg text-sm outline-none transition-colors placeholder:text-muted/50"
+                  className="w-full bg-surface border border-stroke focus:border-accent/50 rounded-xl pl-10 pr-4 py-3 text-fg text-sm outline-none transition-colors placeholder:text-muted/50"
                   placeholder="you@email.com"
                   required
                 />
@@ -187,7 +187,7 @@ export default function SignUpPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-surface border border-border focus:border-accent/50 rounded-xl pl-10 pr-12 py-3 text-fg text-sm outline-none transition-colors placeholder:text-muted/50"
+                  className="w-full bg-surface border border-stroke focus:border-accent/50 rounded-xl pl-10 pr-12 py-3 text-fg text-sm outline-none transition-colors placeholder:text-muted/50"
                   placeholder="Min 6 characters"
                   required
                   minLength={6}
@@ -211,7 +211,7 @@ export default function SignUpPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-accent hover:bg-accent/90 disabled:opacity-50 text-bg font-mono font-bold text-xs tracking-wider py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(186,255,41,0.15)] flex items-center justify-center gap-2"
+              className="w-full bg-accent hover:bg-accent/90 disabled:opacity-50 text-[#06060E] font-mono font-bold text-xs tracking-wider py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(186,255,41,0.15)] flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

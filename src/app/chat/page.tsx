@@ -41,7 +41,7 @@ function SmartTile({
       className={`group relative flex flex-col items-center gap-2 p-4 rounded-xl border transition-all duration-200 text-center min-w-[100px] ${
         selected
           ? "bg-accent/10 border-accent/40 shadow-[0_0_16px_rgba(186,255,41,0.12)]"
-          : "bg-faint border-border hover:border-border-hi hover:bg-surface"
+          : "bg-faint border-stroke hover:border-stroke-hi hover:bg-surface"
       }`}
     >
       <span className="text-2xl">{tile.emoji}</span>
@@ -72,7 +72,7 @@ function TypingIndicator() {
   return (
     <div className="flex gap-2 items-end animate-msg-in">
       <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
-        <span className="text-bg text-xs">&#9672;</span>
+        <span className="text-[#06060E] text-xs">&#9672;</span>
       </div>
       <div className="bg-white/5 rounded-2xl rounded-bl-sm px-4 py-3">
         <div className="flex gap-1">
@@ -104,7 +104,7 @@ function ProgressBar({
 }) {
   const pct = phase === "ai" ? 100 : (current / total) * 100;
   return (
-    <div className="flex items-center gap-3 px-5 py-3 border-b border-border">
+    <div className="flex items-center gap-3 px-5 py-3 border-b border-stroke">
       <div className="flex-1 h-1 bg-faint rounded-full overflow-hidden">
         <div
           className="h-full bg-accent rounded-full transition-all duration-500"
@@ -366,17 +366,17 @@ export default function ChatPage() {
     phase === "tiles" ? TILE_STEPS[tileStep] : null;
 
   return (
-    <div className="min-h-screen bg-bg flex flex-col">
+    <div className="min-h-screen bg-base flex flex-col">
       <Navbar />
 
       <div className="flex-1 flex justify-center px-4 py-6">
         <div className="w-full max-w-2xl flex flex-col">
           {/* Chat Container */}
-          <div className="bg-card border border-border rounded-2xl flex-1 flex flex-col overflow-hidden max-h-[calc(100vh-140px)]">
+          <div className="bg-card border border-stroke rounded-2xl flex-1 flex flex-col overflow-hidden max-h-[calc(100vh-140px)]">
             {/* Header */}
-            <div className="px-5 py-4 border-b border-border flex items-center gap-3">
+            <div className="px-5 py-4 border-b border-stroke flex items-center gap-3">
               <div className="w-9 h-9 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
-                <span className="text-bg text-base font-black">&#9672;</span>
+                <span className="text-[#06060E] font-black">&#9672;</span>
               </div>
               <div className="flex-1">
                 <div className="text-fg text-sm font-semibold">StackIQ</div>
@@ -421,7 +421,7 @@ export default function ChatPage() {
                   return (
                     <div key={i} className="flex gap-2 items-end animate-msg-in">
                       <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-bg text-xs">&#9672;</span>
+                        <span className="text-[#06060E] text-xs">&#9672;</span>
                       </div>
                       <div className="bg-white/5 rounded-2xl rounded-bl-sm px-4 py-3 max-w-[80%]">
                         <p className="text-fg text-[13px] leading-relaxed whitespace-pre-wrap">
@@ -469,7 +469,7 @@ export default function ChatPage() {
                   {selectedTiles.length > 0 && (
                     <button
                       onClick={confirmTileSelection}
-                      className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-bg font-mono text-xs font-bold tracking-wider px-5 py-2.5 rounded-lg transition-all"
+                      className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-xs font-bold tracking-wider px-5 py-2.5 rounded-lg transition-all"
                     >
                       {currentTileStep.type === "tiles-multi"
                         ? `CONTINUE WITH ${selectedTiles.length} SELECTED`
@@ -494,7 +494,7 @@ export default function ChatPage() {
                     </p>
                     <Link
                       href="/dashboard"
-                      className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-bg font-mono text-xs font-bold tracking-wider px-6 py-3 rounded-lg transition-all"
+                      className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-xs font-bold tracking-wider px-6 py-3 rounded-lg transition-all"
                     >
                       VIEW MY STACK
                       <ArrowRight size={12} />
@@ -508,7 +508,7 @@ export default function ChatPage() {
 
             {/* Input area (AI phase) */}
             {phase === "ai" && (
-              <div className="px-5 py-3 border-t border-border">
+              <div className="px-5 py-3 border-t border-stroke">
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -516,13 +516,13 @@ export default function ChatPage() {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && sendAIMessage()}
                     placeholder="Type your answer..."
-                    className="flex-1 bg-surface border border-border focus:border-accent/40 rounded-xl px-4 py-3 text-fg text-sm outline-none transition-colors placeholder:text-muted/50"
+                    className="flex-1 bg-surface border border-stroke focus:border-accent/40 rounded-xl px-4 py-3 text-fg text-sm outline-none transition-colors placeholder:text-muted/50"
                     disabled={aiLoading}
                   />
                   <button
                     onClick={sendAIMessage}
                     disabled={aiLoading || !inputValue.trim()}
-                    className="bg-accent hover:bg-accent/90 disabled:opacity-30 text-bg p-3 rounded-xl transition-all"
+                    className="bg-accent hover:bg-accent/90 disabled:opacity-30 text-[#06060E] p-3 rounded-xl transition-all"
                   >
                     {aiLoading ? (
                       <Loader2 size={16} className="animate-spin" />

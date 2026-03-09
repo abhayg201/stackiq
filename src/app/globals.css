@@ -1,46 +1,28 @@
 @import "tailwindcss";
 
-/* ── StackIQ Design Tokens ─────────────────────────────────────── */
-:root {
-  --bg: #06060E;
-  --surface: #0D0D1A;
-  --card: #111122;
-  --border: rgba(255,255,255,0.07);
-  --border-hi: rgba(255,255,255,0.14);
-  --fg: #F0EEF8;
-  --muted: #52516A;
-  --faint: #1C1C30;
-  --accent: #BAFF29;
-  --accent-dim: rgba(186,255,41,0.12);
-  --blue: #60C8FF;
-  --blue-dim: rgba(96,200,255,0.12);
-  --orange: #FF9B50;
-  --orange-dim: rgba(255,155,80,0.12);
-  --purple: #C084FC;
-  --purple-dim: rgba(192,132,252,0.12);
-  --red: #FF6B6B;
-  --teal: #2DD4BF;
-}
-
+/* ── StackIQ Design Tokens (Tailwind v4) ──────────────────────── */
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-card: var(--card);
-  --color-border: var(--border);
-  --color-border-hi: var(--border-hi);
-  --color-fg: var(--fg);
-  --color-muted: var(--muted);
-  --color-faint: var(--faint);
-  --color-accent: var(--accent);
-  --color-accent-dim: var(--accent-dim);
-  --color-siq-blue: var(--blue);
-  --color-blue-dim: var(--blue-dim);
-  --color-siq-orange: var(--orange);
-  --color-orange-dim: var(--orange-dim);
-  --color-siq-purple: var(--purple);
-  --color-purple-dim: var(--purple-dim);
-  --color-siq-red: var(--red);
-  --color-siq-teal: var(--teal);
+  /* Colors — direct values, no var() nesting */
+  --color-base: #06060E;
+  --color-surface: #0D0D1A;
+  --color-card: #111122;
+  --color-stroke: rgba(255,255,255,0.07);
+  --color-stroke-hi: rgba(255,255,255,0.14);
+  --color-fg: #F0EEF8;
+  --color-muted: #52516A;
+  --color-faint: #1C1C30;
+  --color-accent: #BAFF29;
+  --color-accent-dim: rgba(186,255,41,0.12);
+  --color-siq-blue: #60C8FF;
+  --color-blue-dim: rgba(96,200,255,0.12);
+  --color-siq-orange: #FF9B50;
+  --color-orange-dim: rgba(255,155,80,0.12);
+  --color-siq-purple: #C084FC;
+  --color-purple-dim: rgba(192,132,252,0.12);
+  --color-siq-red: #FF6B6B;
+  --color-siq-teal: #2DD4BF;
+
+  /* Typography */
   --font-serif: 'Fraunces', serif;
   --font-sans: 'Epilogue', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -54,8 +36,8 @@
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
+  background: #06060E;
+  color: #F0EEF8;
   font-family: 'Epilogue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -109,11 +91,6 @@ button {
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 20px rgba(186,255,41,0.1); }
   50% { box-shadow: 0 0 40px rgba(186,255,41,0.25); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
 }
 
 .animate-fade-up {

@@ -102,7 +102,7 @@ const STEPS = [
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-base">
       <Navbar />
 
       {/* ── HERO ──────────────────────────────────────────────── */}
@@ -139,14 +139,14 @@ export default function LandingPage() {
               <div className="flex flex-wrap gap-3 mb-8">
                 <Link
                   href="/auth/signup"
-                  className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-bg font-mono text-xs font-bold tracking-wider px-7 py-4 rounded-xl transition-all shadow-[0_0_32px_rgba(186,255,41,0.2)] animate-pulse-glow"
+                  className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-xs font-bold tracking-wider px-7 py-4 rounded-xl transition-all shadow-[0_0_32px_rgba(186,255,41,0.2)] animate-pulse-glow"
                 >
                   BUILD MY STACK
                   <ArrowRight size={14} />
                 </Link>
                 <a
                   href="#how-it-works"
-                  className="inline-flex items-center gap-2 border border-border hover:border-border-hi text-muted hover:text-fg font-mono text-xs px-6 py-4 rounded-xl transition-all"
+                  className="inline-flex items-center gap-2 border border-stroke hover:border-stroke-hi text-muted hover:text-fg font-mono text-xs px-6 py-4 rounded-xl transition-all"
                 >
                   HOW IT WORKS
                 </a>
@@ -174,8 +174,8 @@ export default function LandingPage() {
               className="animate-fade-up"
               style={{ animationDelay: "0.15s" }}
             >
-              <div className="bg-card border border-border rounded-2xl overflow-hidden">
-                <div className="px-5 py-4 border-b border-border flex justify-between items-center">
+              <div className="bg-card border border-stroke rounded-2xl overflow-hidden">
+                <div className="px-5 py-4 border-b border-stroke flex justify-between items-center">
                   <span className="text-muted text-[10px] font-mono tracking-[0.12em]">
                     SAMPLE STACK PREVIEW
                   </span>
@@ -191,7 +191,7 @@ export default function LandingPage() {
                       className={`p-4 rounded-xl border transition-all ${
                         i === 0
                           ? `${s.bgClass} ${s.borderClass}`
-                          : "bg-faint border-border"
+                          : "bg-faint border-stroke"
                       }`}
                       style={{
                         filter: i > 0 ? `blur(${i * 2.5 + 1}px)` : "none",
@@ -244,10 +244,10 @@ export default function LandingPage() {
                   ))}
                 </div>
 
-                <div className="px-4 py-3 border-t border-border">
+                <div className="px-4 py-3 border-t border-stroke">
                   <Link
                     href="/auth/signup"
-                    className="block w-full bg-accent hover:bg-accent/90 text-bg text-center font-mono text-[11px] font-bold tracking-wider py-3 rounded-lg transition-all"
+                    className="block w-full bg-accent hover:bg-accent/90 text-[#06060E] text-center font-mono text-[11px] font-bold tracking-wider py-3 rounded-lg transition-all"
                   >
                     UNLOCK YOUR PERSONAL STACK &rarr;
                   </Link>
@@ -259,7 +259,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── HOW IT WORKS ──────────────────────────────────────── */}
-      <section id="how-it-works" className="py-20 border-t border-border">
+      <section id="how-it-works" className="py-20 border-t border-stroke">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
             <span className="text-accent text-[10px] font-mono tracking-[0.2em] block mb-3">
@@ -278,7 +278,7 @@ export default function LandingPage() {
             {STEPS.map((step) => (
               <div
                 key={step.num}
-                className="relative bg-card border border-border rounded-2xl p-6 hover:border-accent/20 transition-all group"
+                className="relative bg-card border border-stroke rounded-2xl p-6 hover:border-accent/20 transition-all group"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-accent/30 text-3xl font-mono font-bold">
@@ -301,7 +301,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── FEATURES ──────────────────────────────────────────── */}
-      <section className="py-20 border-t border-border">
+      <section className="py-20 border-t border-stroke">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
             <span className="text-accent text-[10px] font-mono tracking-[0.2em] block mb-3">
@@ -338,10 +338,10 @@ export default function LandingPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-border">
+      <section className="py-24 border-t border-stroke">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <div className="w-14 h-14 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(186,255,41,0.25)]">
-            <span className="text-bg text-2xl font-black">&#9672;</span>
+            <span className="text-[#06060E] text-2xl font-black">&#9672;</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-fg mb-4">
             Ready to stop guessing?
@@ -352,7 +352,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/auth/signup"
-            className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-bg font-mono text-sm font-bold tracking-wider px-8 py-4 rounded-xl transition-all shadow-[0_0_32px_rgba(186,255,41,0.2)]"
+            className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-sm font-bold tracking-wider px-8 py-4 rounded-xl transition-all shadow-[0_0_32px_rgba(186,255,41,0.2)]"
           >
             BUILD MY STACK
             <ArrowRight size={16} />
@@ -361,11 +361,11 @@ export default function LandingPage() {
       </section>
 
       {/* ── FOOTER ────────────────────────────────────────────── */}
-      <footer className="border-t border-border py-8">
+      <footer className="border-t border-stroke py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 bg-accent rounded flex items-center justify-center">
-              <span className="text-bg text-[10px] font-black">&#9672;</span>
+              <span className="text-[#06060E] text-[10px] font-black">&#9672;</span>
             </div>
             <span className="text-muted text-xs font-mono">
               STACKIQ &copy; 2026

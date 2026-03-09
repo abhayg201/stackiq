@@ -294,7 +294,7 @@ function SupplementCard({
       {expanded && (
         <div>
           {/* Tabs */}
-          <div className="flex border-t border-b border-border overflow-x-auto">
+          <div className="flex border-t border-b border-stroke overflow-x-auto">
             {tabs.map((t) => (
               <button
                 key={t.id}
@@ -342,7 +342,7 @@ function SupplementCard({
                       className={`p-4 bg-faint rounded-xl border-l-[3px] ${
                         w.strength === "HIGH"
                           ? borderDim.replace("/20", "/60")
-                          : "border-border"
+                          : "border-stroke"
                       }`}
                     >
                       <div className="flex justify-between items-center mb-1">
@@ -353,7 +353,7 @@ function SupplementCard({
                           className={`text-[9px] font-mono px-2 py-0.5 rounded border ${
                             w.strength === "HIGH"
                               ? `${colorClass} ${bgDim} ${borderDim}`
-                              : "text-muted bg-card border-border"
+                              : "text-muted bg-card border-stroke"
                           }`}
                         >
                           {w.strength}
@@ -429,7 +429,7 @@ function SupplementCard({
       {/* Expand toggle */}
       <div
         onClick={onToggle}
-        className="py-2.5 border-t border-border flex justify-center cursor-pointer bg-faint hover:bg-white/[0.02] transition"
+        className="py-2.5 border-t border-stroke flex justify-center cursor-pointer bg-faint hover:bg-white/[0.02] transition"
       >
         <span className="text-muted text-[10px] font-mono tracking-wider flex items-center gap-1">
           {expanded ? (
@@ -458,7 +458,7 @@ export default function DashboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-base">
       <Navbar />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
@@ -490,7 +490,7 @@ export default function DashboardPage() {
 
         {/* Context bar */}
         <div
-          className="bg-card border border-border rounded-xl p-3 px-4 mb-6 flex flex-wrap gap-4 items-center animate-fade-up"
+          className="bg-card border border-stroke rounded-xl p-3 px-4 mb-6 flex flex-wrap gap-4 items-center animate-fade-up"
           style={{ animationDelay: "0.05s" }}
         >
           <span className="text-muted text-[10px] font-mono tracking-wider">
@@ -508,7 +508,7 @@ export default function DashboardPage() {
           ))}
           <Link
             href="/chat"
-            className="ml-auto text-muted hover:text-accent text-[10px] font-mono border border-border hover:border-accent/30 rounded-md px-3 py-1 transition-all"
+            className="ml-auto text-muted hover:text-accent text-[10px] font-mono border border-stroke hover:border-accent/30 rounded-md px-3 py-1 transition-all"
           >
             + REFINE
           </Link>
@@ -531,7 +531,7 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-          <button className="bg-accent text-bg font-mono text-[10px] font-bold tracking-wider px-4 py-2 rounded-lg flex-shrink-0">
+          <button className="bg-accent text-[#06060E] font-mono text-[10px] font-bold tracking-wider px-4 py-2 rounded-lg flex-shrink-0">
             UPLOAD →
           </button>
         </div>
@@ -557,7 +557,7 @@ export default function DashboardPage() {
 
         {/* Locked teaser */}
         <div
-          className="mt-6 bg-card border border-border rounded-2xl p-6 text-center animate-fade-up"
+          className="mt-6 bg-card border border-stroke rounded-2xl p-6 text-center animate-fade-up"
           style={{ animationDelay: "0.4s" }}
         >
           <div className="text-muted text-[10px] font-mono tracking-[0.15em] mb-4">
@@ -568,7 +568,7 @@ export default function DashboardPage() {
               (s, i) => (
                 <div
                   key={s}
-                  className="px-4 py-2 bg-faint border border-border rounded-lg"
+                  className="px-4 py-2 bg-faint border border-stroke rounded-lg"
                   style={{
                     filter: `blur(${i + 1}px)`,
                     opacity: 0.5,
@@ -581,7 +581,7 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/chat"
-            className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-bg font-mono text-[11px] font-bold tracking-wider px-6 py-3 rounded-lg transition-all"
+            className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-[11px] font-bold tracking-wider px-6 py-3 rounded-lg transition-all"
           >
             <Sparkles size={14} />
             ADD YOUR DATA → UNLOCK ALL
