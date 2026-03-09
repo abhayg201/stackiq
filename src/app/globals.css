@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
+/* ── StackIQ Design Tokens ─────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #06060E;
+  --surface: #0D0D1A;
+  --card: #111122;
+  --border: rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.14);
+  --fg: #F0EEF8;
+  --muted: #52516A;
+  --faint: #1C1C30;
+  --accent: #BAFF29;
+  --accent-dim: rgba(186,255,41,0.12);
+  --blue: #60C8FF;
+  --blue-dim: rgba(96,200,255,0.12);
+  --orange: #FF9B50;
+  --orange-dim: rgba(255,155,80,0.12);
+  --purple: #C084FC;
+  --purple-dim: rgba(192,132,252,0.12);
+  --red: #FF6B6B;
+  --teal: #2DD4BF;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-border-hi: var(--border-hi);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-siq-blue: var(--blue);
+  --color-blue-dim: var(--blue-dim);
+  --color-siq-orange: var(--orange);
+  --color-orange-dim: var(--orange-dim);
+  --color-siq-purple: var(--purple);
+  --color-purple-dim: var(--purple-dim);
+  --color-siq-red: var(--red);
+  --color-siq-teal: var(--teal);
+  --font-serif: 'Fraunces', serif;
+  --font-sans: 'Epilogue', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Global Styles ──────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Epilogue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+}
+
+/* ── Animations ─────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typeDot {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes blurIn {
+  from { filter: blur(12px); opacity: 0; }
+  to { filter: blur(0); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(186,255,41,0.1); }
+  50% { box-shadow: 0 0 40px rgba(186,255,41,0.25); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease both;
+}
+
+.animate-msg-in {
+  animation: msgIn 0.3s ease both;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease infinite;
 }
