@@ -39,7 +39,7 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-base/80 backdrop-blur-xl border-b border-stroke">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div className="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 h-14 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center group-hover:shadow-[0_0_16px_rgba(186,255,41,0.3)] transition-shadow">

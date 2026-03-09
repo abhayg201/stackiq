@@ -110,8 +110,8 @@ export default function LandingPage() {
         {/* Background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-16">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pt-20 sm:pt-28 pb-20">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left: Copy */}
             <div className="animate-fade-up">
               <div className="inline-flex items-center gap-2 bg-accent-dim border border-accent/30 rounded-md px-3 py-1 mb-6">
@@ -259,9 +259,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── HOW IT WORKS ──────────────────────────────────────── */}
-      <section id="how-it-works" className="py-20 border-t border-stroke">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
+      <section id="how-it-works" className="py-24 border-t border-stroke">
+        <div className="w-full max-w-4xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="text-center mb-16">
             <span className="text-accent text-[10px] font-mono tracking-[0.2em] block mb-3">
               HOW IT WORKS
             </span>
@@ -274,21 +274,21 @@ export default function LandingPage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-5">
             {STEPS.map((step) => (
               <div
                 key={step.num}
-                className="relative bg-card border border-stroke rounded-2xl p-6 hover:border-accent/20 transition-all group"
+                className="bg-card border border-stroke rounded-2xl p-6 hover:border-accent/20 transition-all group"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-accent/30 text-3xl font-mono font-bold">
+                  <span className="text-accent/30 text-2xl font-mono font-bold">
                     {step.num}
                   </span>
-                  <div className="w-10 h-10 bg-accent-dim border border-accent/20 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition">
-                    <step.icon size={18} className="text-accent" />
+                  <div className="w-9 h-9 bg-accent-dim border border-accent/20 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition">
+                    <step.icon size={16} className="text-accent" />
                   </div>
                 </div>
-                <h3 className="text-fg text-lg font-semibold mb-2">
+                <h3 className="text-fg text-base font-semibold mb-2">
                   {step.title}
                 </h3>
                 <p className="text-muted text-sm leading-relaxed">
@@ -301,9 +301,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── FEATURES ──────────────────────────────────────────── */}
-      <section className="py-20 border-t border-stroke">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
+      <section className="py-24 border-t border-stroke">
+        <div className="w-full max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="text-center mb-16">
             <span className="text-accent text-[10px] font-mono tracking-[0.2em] block mb-3">
               WHY STACKIQ
             </span>
@@ -322,13 +322,13 @@ export default function LandingPage() {
                 key={f.title}
                 className={`${f.bg} border ${f.border} rounded-2xl p-6 hover:scale-[1.01] transition-transform`}
               >
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-3">
                   <div
-                    className={`w-10 h-10 ${f.bg} border ${f.border} rounded-lg flex items-center justify-center`}
+                    className={`w-9 h-9 ${f.bg} border ${f.border} rounded-lg flex items-center justify-center shrink-0`}
                   >
-                    <f.icon size={18} className={f.color} />
+                    <f.icon size={16} className={f.color} />
                   </div>
-                  <h3 className="text-fg text-lg font-semibold">{f.title}</h3>
+                  <h3 className="text-fg text-base font-semibold">{f.title}</h3>
                 </div>
                 <p className="text-muted text-sm leading-relaxed">{f.desc}</p>
               </div>
@@ -338,15 +338,15 @@ export default function LandingPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-stroke">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+      <section className="py-28 border-t border-stroke">
+        <div className="w-full max-w-xl mx-auto px-6 sm:px-10 text-center">
           <div className="w-14 h-14 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(186,255,41,0.25)]">
             <span className="text-[#06060E] text-2xl font-black">&#9672;</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-fg mb-4">
             Ready to stop guessing?
           </h2>
-          <p className="text-muted text-base leading-relaxed mb-8 max-w-lg mx-auto">
+          <p className="text-muted text-base leading-relaxed mb-8">
             Start with a 3-minute assessment. Get your first recommendation
             instantly. No credit card. No spam. Just science.
           </p>
@@ -362,7 +362,7 @@ export default function LandingPage() {
 
       {/* ── FOOTER ────────────────────────────────────────────── */}
       <footer className="border-t border-stroke py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="w-full max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 bg-accent rounded flex items-center justify-center">
               <span className="text-[#06060E] text-[10px] font-black">&#9672;</span>
