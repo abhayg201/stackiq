@@ -44,12 +44,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#09090B", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column" }}>
       {/* Minimal nav */}
-      <div style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem", height: "3.5rem", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+      <div style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem", height: "3.5rem", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
         <Link
           href="/"
-          style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#71717A", textDecoration: "none", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" }}
+          style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#6B7280", textDecoration: "none", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" }}
         >
           <ArrowLeft size={16} />
           BACK
@@ -64,21 +64,21 @@ export default function LoginPage() {
               style={{
                 width: "3rem",
                 height: "3rem",
-                backgroundColor: "#22D3EE",
+                backgroundColor: "#16A34A",
                 borderRadius: "0.75rem",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 margin: "0 auto 1rem",
-                boxShadow: "0 0 30px rgba(34,211,238,0.2)",
+                boxShadow: "0 0 30px rgba(22,163,74,0.2)",
               }}
             >
-              <span style={{ color: "#042F2E", fontSize: "1.25rem", fontWeight: 900 }}>&#9672;</span>
+              <span style={{ color: "#FFFFFF", fontSize: "1.25rem", fontWeight: 900 }}>&#9672;</span>
             </div>
-            <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "1.5rem", fontWeight: 700, color: "#F0F0F3", marginBottom: "0.5rem" }}>
+            <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "1.5rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem" }}>
               Welcome back
             </h1>
-            <p style={{ color: "#71717A", fontSize: "0.875rem" }}>
+            <p style={{ color: "#6B7280", fontSize: "0.875rem" }}>
               Sign in to access your personalized stack
             </p>
           </div>
@@ -93,10 +93,10 @@ export default function LoginPage() {
               justifyContent: "center",
               gap: "0.75rem",
               padding: "0.75rem 1rem",
-              backgroundColor: "#131316",
-              border: "1px solid rgba(255,255,255,0.08)",
+              backgroundColor: "#F9FAFB",
+              border: "1px solid rgba(0,0,0,0.08)",
               borderRadius: "0.75rem",
-              color: "#F0F0F3",
+              color: "#111827",
               fontSize: "0.875rem",
               fontWeight: 500,
               marginBottom: "1.5rem",
@@ -114,33 +114,33 @@ export default function LoginPage() {
 
           {/* Divider */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.08)" }} />
-            <span style={{ color: "#71717A", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" }}>OR</span>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.08)" }} />
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(0,0,0,0.08)" }} />
+            <span style={{ color: "#9CA3AF", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" }}>OR</span>
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(0,0,0,0.08)" }} />
           </div>
 
           {/* Form */}
           <form onSubmit={handleLogin}>
             <div style={{ marginBottom: "1rem" }}>
-              <label style={{ display: "block", color: "#71717A", fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", marginBottom: "0.5rem" }}>
+              <label style={{ display: "block", color: "#6B7280", fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", marginBottom: "0.5rem" }}>
                 EMAIL
               </label>
               <div style={{ position: "relative" }}>
-                <Mail size={16} style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "#71717A" }} />
+                <Mail size={16} style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "#9CA3AF" }} />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   style={{
                     width: "100%",
-                    backgroundColor: "#131316",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    backgroundColor: "#F9FAFB",
+                    border: "1px solid rgba(0,0,0,0.08)",
                     borderRadius: "0.75rem",
                     paddingLeft: "2.5rem",
                     paddingRight: "1rem",
                     paddingTop: "0.75rem",
                     paddingBottom: "0.75rem",
-                    color: "#F0F0F3",
+                    color: "#111827",
                     fontSize: "0.875rem",
                     outline: "none",
                     fontFamily: "inherit",
@@ -152,25 +152,25 @@ export default function LoginPage() {
             </div>
 
             <div style={{ marginBottom: "1rem" }}>
-              <label style={{ display: "block", color: "#71717A", fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", marginBottom: "0.5rem" }}>
+              <label style={{ display: "block", color: "#6B7280", fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", marginBottom: "0.5rem" }}>
                 PASSWORD
               </label>
               <div style={{ position: "relative" }}>
-                <Lock size={16} style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "#71717A" }} />
+                <Lock size={16} style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "#9CA3AF" }} />
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   style={{
                     width: "100%",
-                    backgroundColor: "#131316",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    backgroundColor: "#F9FAFB",
+                    border: "1px solid rgba(0,0,0,0.08)",
                     borderRadius: "0.75rem",
                     paddingLeft: "2.5rem",
                     paddingRight: "3rem",
                     paddingTop: "0.75rem",
                     paddingBottom: "0.75rem",
-                    color: "#F0F0F3",
+                    color: "#111827",
                     fontSize: "0.875rem",
                     outline: "none",
                     fontFamily: "inherit",
@@ -181,7 +181,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  style={{ position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "#71717A", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                  style={{ position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "#9CA3AF", background: "none", border: "none", cursor: "pointer", padding: 0 }}
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -189,8 +189,8 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <div style={{ backgroundColor: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.2)", borderRadius: "0.5rem", padding: "0.625rem 1rem", marginBottom: "1rem" }}>
-                <p style={{ color: "#F87171", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" }}>{error}</p>
+              <div style={{ backgroundColor: "rgba(220,38,38,0.06)", border: "1px solid rgba(220,38,38,0.2)", borderRadius: "0.5rem", padding: "0.625rem 1rem", marginBottom: "1rem" }}>
+                <p style={{ color: "#DC2626", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" }}>{error}</p>
               </div>
             )}
 
@@ -199,8 +199,8 @@ export default function LoginPage() {
               disabled={loading}
               style={{
                 width: "100%",
-                backgroundColor: "#22D3EE",
-                color: "#042F2E",
+                backgroundColor: "#16A34A",
+                color: "#FFFFFF",
                 fontFamily: "'IBM Plex Mono', monospace",
                 fontWeight: 700,
                 fontSize: "0.75rem",
@@ -210,7 +210,7 @@ export default function LoginPage() {
                 border: "none",
                 cursor: loading ? "default" : "pointer",
                 opacity: loading ? 0.5 : 1,
-                boxShadow: "0 0 20px rgba(34,211,238,0.15)",
+                boxShadow: "0 0 20px rgba(22,163,74,0.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -230,9 +230,9 @@ export default function LoginPage() {
           </form>
 
           {/* Footer */}
-          <p style={{ textAlign: "center", color: "#71717A", fontSize: "0.875rem", marginTop: "1.5rem" }}>
+          <p style={{ textAlign: "center", color: "#6B7280", fontSize: "0.875rem", marginTop: "1.5rem" }}>
             Don&apos;t have an account?{" "}
-            <Link href="/auth/signup" style={{ color: "#22D3EE", textDecoration: "none", fontWeight: 500 }}>
+            <Link href="/auth/signup" style={{ color: "#16A34A", textDecoration: "none", fontWeight: 500 }}>
               Sign up
             </Link>
           </p>

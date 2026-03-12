@@ -2,25 +2,25 @@
 
 /* ── StackIQ Design Tokens (Tailwind v4) ──────────────────────── */
 @theme inline {
-  /* Colors — Deep Slate + Cyan palette */
-  --color-base: #09090B;
-  --color-surface: #131316;
-  --color-card: #1C1C22;
-  --color-stroke: rgba(255,255,255,0.08);
-  --color-stroke-hi: rgba(255,255,255,0.14);
-  --color-fg: #F0F0F3;
-  --color-muted: #71717A;
-  --color-faint: #27272A;
-  --color-accent: #22D3EE;
-  --color-accent-dim: rgba(34,211,238,0.12);
-  --color-siq-blue: #38BDF8;
-  --color-blue-dim: rgba(56,189,248,0.12);
-  --color-siq-orange: #FB923C;
-  --color-orange-dim: rgba(251,146,60,0.12);
-  --color-siq-purple: #A78BFA;
-  --color-purple-dim: rgba(167,139,250,0.12);
-  --color-siq-red: #F87171;
-  --color-siq-teal: #34D399;
+  /* Colors — Light mode with green accent */
+  --color-base: #FFFFFF;
+  --color-surface: #F0FDF4;
+  --color-card: #FFFFFF;
+  --color-stroke: rgba(0,0,0,0.08);
+  --color-stroke-hi: rgba(0,0,0,0.15);
+  --color-fg: #111827;
+  --color-muted: #6B7280;
+  --color-faint: #F3F4F6;
+  --color-accent: #16A34A;
+  --color-accent-dim: rgba(22,163,74,0.08);
+  --color-siq-blue: #2563EB;
+  --color-blue-dim: rgba(37,99,235,0.08);
+  --color-siq-orange: #EA580C;
+  --color-orange-dim: rgba(234,88,12,0.08);
+  --color-siq-purple: #7C3AED;
+  --color-purple-dim: rgba(124,58,237,0.08);
+  --color-siq-red: #DC2626;
+  --color-siq-teal: #0D9488;
 
   /* Typography */
   --font-serif: 'Fraunces', serif;
@@ -36,8 +36,8 @@
 }
 
 body {
-  background: #09090B;
-  color: #F0F0F3;
+  background: #FFFFFF;
+  color: #111827;
   font-family: 'Epilogue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -58,7 +58,7 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.12);
   border-radius: 2px;
 }
 
@@ -89,8 +89,8 @@ button {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(34,211,238,0.1); }
-  50% { box-shadow: 0 0 40px rgba(34,211,238,0.25); }
+  0%, 100% { box-shadow: 0 0 20px rgba(22,163,74,0.08); }
+  50% { box-shadow: 0 0 40px rgba(22,163,74,0.15); }
 }
 
 .animate-fade-up {

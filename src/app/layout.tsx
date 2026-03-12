@@ -20,14 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Fraunces:opsz,ital,wght@9..144,0,700;9..144,0,900;9..144,1,700&family=Epilogue:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-base text-fg font-sans antialiased min-h-screen">
+      <body style={{ background: "#FFFFFF", color: "#111827", fontFamily: "'Epilogue', sans-serif", minHeight: "100vh" }}>
         {children}
       </body>
     </html>

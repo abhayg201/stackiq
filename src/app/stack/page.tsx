@@ -62,10 +62,10 @@ function EffectBar({
 }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.5rem 0" }}>
-      <span style={{ width: "140px", flexShrink: 0, fontSize: "0.8125rem", color: "rgba(240,240,243,0.7)" }}>
+      <span style={{ width: "140px", flexShrink: 0, fontSize: "0.8125rem", color: "rgba(17,24,39,0.7)" }}>
         {label}
       </span>
-      <div style={{ flex: 1, height: "6px", backgroundColor: "rgba(255,255,255,0.06)", borderRadius: "3px", overflow: "hidden" }}>
+      <div style={{ flex: 1, height: "6px", backgroundColor: "rgba(0,0,0,0.06)", borderRadius: "3px", overflow: "hidden" }}>
         <div
           style={{
             height: "100%",
@@ -77,7 +77,7 @@ function EffectBar({
           }}
         />
       </div>
-      <span style={{ width: "28px", textAlign: "right", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "rgba(240,240,243,0.5)" }}>
+      <span style={{ width: "28px", textAlign: "right", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "rgba(17,24,39,0.5)" }}>
         {score}
       </span>
     </div>
@@ -89,11 +89,11 @@ function EffectBar({
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const COLOR_HEX: Record<Supplement["accentColor"], string> = {
-  green: "#22D3EE",
-  blue: "#38BDF8",
-  orange: "#FB923C",
-  purple: "#A78BFA",
-  teal: "#34D399",
+  green: "#16A34A",
+  blue: "#2563EB",
+  orange: "#EA580C",
+  purple: "#7C3AED",
+  teal: "#0D9488",
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -108,20 +108,20 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
   return (
     <div
       style={{
-        backgroundColor: "rgba(19,19,22,0.6)",
-        border: "1px solid rgba(255,255,255,0.06)",
+        backgroundColor: "#FFFFFF",
+        border: "1px solid rgba(0,0,0,0.06)",
         borderRadius: "1rem",
         overflow: "hidden",
         transition: "border-color 0.2s",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)")}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(0,0,0,0.1)")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(0,0,0,0.06)")}
     >
       {/* ── Card Header ───────────────────────────────────── */}
       <div style={{ padding: "1.5rem" }}>
         {/* Top row: rank + category + form */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "0.875rem" }}>
-          <span style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,240,243,0.2)" }}>
+          <span style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(17,24,39,0.2)" }}>
             #{rank}
           </span>
           <span
@@ -138,7 +138,7 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
           >
             {supp.category.toUpperCase()}
           </span>
-          <span style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,240,243,0.3)" }}>
+          <span style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(17,24,39,0.3)" }}>
             {supp.form}
           </span>
         </div>
@@ -146,10 +146,10 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
         {/* Name + Score */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: "1.375rem", fontWeight: 700, color: "#F0F0F3", marginBottom: "0.375rem", lineHeight: 1.2 }}>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: "1.375rem", fontWeight: 700, color: "#111827", marginBottom: "0.375rem", lineHeight: 1.2 }}>
               {supp.name}
             </h3>
-            <p style={{ fontSize: "0.8125rem", color: "#71717A", lineHeight: 1.6 }}>
+            <p style={{ fontSize: "0.8125rem", color: "#6B7280", lineHeight: 1.6 }}>
               {supp.oneLiner}
             </p>
 
@@ -161,9 +161,9 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
                   style={{
                     fontSize: "0.625rem",
                     fontFamily: "'IBM Plex Mono', monospace",
-                    color: "rgba(240,240,243,0.35)",
-                    backgroundColor: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    color: "rgba(17,24,39,0.35)",
+                    backgroundColor: "rgba(0,0,0,0.04)",
+                    border: "1px solid rgba(0,0,0,0.06)",
                     padding: "0.125rem 0.5rem",
                     borderRadius: "0.25rem",
                   }}
@@ -192,7 +192,7 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
             <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "1.625rem", fontWeight: 700, color: hex, lineHeight: 1 }}>
               {supp.matchScore}
             </span>
-            <span style={{ fontSize: "0.5rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,240,243,0.3)", letterSpacing: "0.12em", marginTop: "0.125rem" }}>
+            <span style={{ fontSize: "0.5rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(17,24,39,0.3)", letterSpacing: "0.12em", marginTop: "0.125rem" }}>
               MATCH
             </span>
           </div>
@@ -206,11 +206,11 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
             gap: "0.75rem",
             marginTop: "1.25rem",
             paddingTop: "1.25rem",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderTop: "1px solid rgba(0,0,0,0.06)",
           }}
         >
           <div>
-            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#71717A", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
+            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#6B7280", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
               EVIDENCE
             </div>
             <div style={{ display: "flex", gap: "0.25rem" }}>
@@ -221,29 +221,29 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
                     width: "8px",
                     height: "8px",
                     borderRadius: "50%",
-                    backgroundColor: i <= supp.evidenceLevel ? hex : "rgba(255,255,255,0.05)",
+                    backgroundColor: i <= supp.evidenceLevel ? hex : "rgba(0,0,0,0.04)",
                     transition: "background-color 0.3s",
                   }}
                 />
               ))}
             </div>
-            <div style={{ fontSize: "0.625rem", color: "#71717A", marginTop: "0.25rem" }}>
+            <div style={{ fontSize: "0.625rem", color: "#6B7280", marginTop: "0.25rem" }}>
               {supp.evidenceLabel}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#71717A", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
+            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#6B7280", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
               STUDIES
             </div>
-            <div style={{ fontSize: "1.125rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, color: "#F0F0F3" }}>
+            <div style={{ fontSize: "1.125rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, color: "#111827" }}>
               {supp.studyCount}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#71717A", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
+            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#6B7280", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
               MONTHLY
             </div>
-            <div style={{ fontSize: "0.875rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#F0F0F3" }}>
+            <div style={{ fontSize: "0.875rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#111827" }}>
               {supp.costMonthly}
             </div>
           </div>
@@ -254,7 +254,7 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
       {open && (
         <>
           {/* Tabs */}
-          <div style={{ display: "flex", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ display: "flex", borderTop: "1px solid rgba(0,0,0,0.06)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
             {(["effects", "why", "dosing"] as const).map((t) => (
               <button
                 key={t}
@@ -266,7 +266,7 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
                   fontFamily: "'IBM Plex Mono', monospace",
                   letterSpacing: "0.1em",
                   fontWeight: tab === t ? 700 : 400,
-                  color: tab === t ? hex : "#71717A",
+                  color: tab === t ? hex : "#6B7280",
                   backgroundColor: "transparent",
                   border: "none",
                   borderBottom: tab === t ? `2px solid ${hex}` : "2px solid transparent",
@@ -302,12 +302,12 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
                         height: "6px",
                         borderRadius: "50%",
                         marginTop: "0.5rem",
-                        backgroundColor: w.strength === "HIGH" ? hex : "rgba(255,255,255,0.1)",
+                        backgroundColor: w.strength === "HIGH" ? hex : "rgba(0,0,0,0.1)",
                       }}
                     />
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
-                        <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#F0F0F3" }}>
+                        <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#111827" }}>
                           {w.signal}
                         </span>
                         <span
@@ -316,14 +316,14 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
                             fontFamily: "'IBM Plex Mono', monospace",
                             padding: "0.0625rem 0.375rem",
                             borderRadius: "0.1875rem",
-                            color: w.strength === "HIGH" ? hex : "#71717A",
-                            backgroundColor: w.strength === "HIGH" ? `${hex}12` : "rgba(255,255,255,0.03)",
+                            color: w.strength === "HIGH" ? hex : "#6B7280",
+                            backgroundColor: w.strength === "HIGH" ? `${hex}12` : "rgba(0,0,0,0.04)",
                           }}
                         >
                           {w.strength}
                         </span>
                       </div>
-                      <p style={{ fontSize: "0.75rem", color: "#71717A", lineHeight: 1.6 }}>
+                      <p style={{ fontSize: "0.75rem", color: "#6B7280", lineHeight: 1.6 }}>
                         {w.note}
                       </p>
                     </div>
@@ -345,18 +345,18 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
                     <div
                       key={d.label}
                       style={{
-                        backgroundColor: "rgba(255,255,255,0.02)",
+                        backgroundColor: "rgba(0,0,0,0.02)",
                         borderRadius: "0.75rem",
                         padding: "0.875rem",
                       }}
                     >
                       <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginBottom: "0.375rem" }}>
-                        <d.Icon size={11} color="#71717A" />
-                        <span style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#71717A", letterSpacing: "0.1em" }}>
+                        <d.Icon size={11} color="#6B7280" />
+                        <span style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#6B7280", letterSpacing: "0.1em" }}>
                           {d.label}
                         </span>
                       </div>
-                      <div style={{ fontSize: "0.8125rem", color: "#F0F0F3", lineHeight: 1.4 }}>
+                      <div style={{ fontSize: "0.8125rem", color: "#111827", lineHeight: 1.4 }}>
                         {d.value}
                       </div>
                     </div>
@@ -367,28 +367,28 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
                 {supp.cautions.length > 0 && (
                   <div
                     style={{
-                      backgroundColor: "rgba(255,255,255,0.02)",
-                      border: "1px solid rgba(255,255,255,0.06)",
+                      backgroundColor: "rgba(0,0,0,0.02)",
+                      border: "1px solid rgba(0,0,0,0.06)",
                       borderRadius: "0.75rem",
                       padding: "1rem",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginBottom: "0.625rem" }}>
-                      <AlertTriangle size={12} color="#FB923C" />
-                      <span style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#FB923C", letterSpacing: "0.1em" }}>
+                      <AlertTriangle size={12} color="#EA580C" />
+                      <span style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#EA580C", letterSpacing: "0.1em" }}>
                         CAUTIONS
                       </span>
                     </div>
                     {supp.cautions.map((c, i) => (
                       <div key={i} style={{ display: "flex", gap: "0.5rem", marginBottom: i < supp.cautions.length - 1 ? "0.375rem" : 0 }}>
                         {c.severity === "danger" ? (
-                          <AlertTriangle size={11} color="#F87171" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
+                          <AlertTriangle size={11} color="#DC2626" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
                         ) : c.severity === "warning" ? (
-                          <AlertTriangle size={11} color="#FB923C" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
+                          <AlertTriangle size={11} color="#EA580C" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
                         ) : (
-                          <Info size={11} color="#71717A" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
+                          <Info size={11} color="#6B7280" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
                         )}
-                        <span style={{ fontSize: "0.75rem", color: "rgba(240,240,243,0.5)", lineHeight: 1.5 }}>
+                        <span style={{ fontSize: "0.75rem", color: "rgba(17,24,39,0.5)", lineHeight: 1.5 }}>
                           {c.text}
                         </span>
                       </div>
@@ -407,12 +407,12 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
         style={{
           width: "100%",
           padding: "0.75rem",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          backgroundColor: "rgba(255,255,255,0.01)",
+          borderTop: "1px solid rgba(0,0,0,0.06)",
+          backgroundColor: "rgba(0,0,0,0.01)",
           border: "none",
           borderTopStyle: "solid",
           borderTopWidth: "1px",
-          borderTopColor: "rgba(255,255,255,0.06)",
+          borderTopColor: "rgba(0,0,0,0.06)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -420,12 +420,12 @@ function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
           fontSize: "0.6875rem",
           fontFamily: "'IBM Plex Mono', monospace",
           letterSpacing: "0.1em",
-          color: "#71717A",
+          color: "#6B7280",
           cursor: "pointer",
           transition: "color 0.2s",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "#F0F0F3")}
-        onMouseLeave={(e) => (e.currentTarget.style.color = "#71717A")}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#111827")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "#6B7280")}
       >
         <ChevronDown
           size={14}
@@ -447,7 +447,7 @@ export default function StackPage() {
   const totalCost = getTotalCostRange(supplements);
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#09090B" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#FFFFFF" }}>
       <Navbar />
 
       {/* ── Hero Summary ──────────────────────────────────── */}
@@ -456,14 +456,14 @@ export default function StackPage() {
           {/* Top Row */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }} className="animate-fade-up">
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <Sparkles size={14} color="#22D3EE" />
-              <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#22D3EE" }}>
+              <Sparkles size={14} color="#16A34A" />
+              <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#16A34A" }}>
                 YOUR PERSONALISED STACK
               </span>
             </div>
             <Link
               href="/chat"
-              style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "#71717A", textDecoration: "none", transition: "color 0.2s" }}
+              style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "#6B7280", textDecoration: "none", transition: "color 0.2s" }}
             >
               <RotateCcw size={12} />
               RETAKE
@@ -472,27 +472,27 @@ export default function StackPage() {
 
           {/* Summary Cards */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.75rem", marginBottom: "1rem" }} className="animate-fade-up">
-            <div style={{ backgroundColor: "rgba(19,19,22,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
-              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "2rem", fontWeight: 700, color: "#22D3EE", lineHeight: 1 }}>
+            <div style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "2rem", fontWeight: 700, color: "#16A34A", lineHeight: 1 }}>
                 {supplements.length}
               </div>
-              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "#71717A", marginTop: "0.375rem" }}>
+              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "#6B7280", marginTop: "0.375rem" }}>
                 SUPPLEMENTS
               </div>
             </div>
-            <div style={{ backgroundColor: "rgba(19,19,22,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
-              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "2rem", fontWeight: 700, color: "#F0F0F3", lineHeight: 1 }}>
+            <div style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "2rem", fontWeight: 700, color: "#111827", lineHeight: 1 }}>
                 {avgMatch}%
               </div>
-              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "#71717A", marginTop: "0.375rem" }}>
+              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "#6B7280", marginTop: "0.375rem" }}>
                 AVG MATCH
               </div>
             </div>
-            <div style={{ backgroundColor: "rgba(19,19,22,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
-              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "1rem", fontWeight: 700, color: "#F0F0F3", lineHeight: 1, paddingTop: "0.375rem" }}>
+            <div style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "1rem", fontWeight: 700, color: "#111827", lineHeight: 1, paddingTop: "0.375rem" }}>
                 {totalCost}
               </div>
-              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "#71717A", marginTop: "0.375rem" }}>
+              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "#6B7280", marginTop: "0.375rem" }}>
                 MONTHLY
               </div>
             </div>
@@ -501,8 +501,8 @@ export default function StackPage() {
           {/* Based On Bar */}
           <div
             style={{
-              backgroundColor: "rgba(19,19,22,0.6)",
-              border: "1px solid rgba(255,255,255,0.06)",
+              backgroundColor: "#FFFFFF",
+              border: "1px solid rgba(0,0,0,0.06)",
               borderRadius: "0.75rem",
               padding: "0.75rem 1rem",
               display: "flex",
@@ -512,11 +512,11 @@ export default function StackPage() {
             }}
             className="animate-fade-up"
           >
-            <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.1em", color: "#71717A" }}>
+            <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.1em", color: "#6B7280" }}>
               BASED ON:
             </span>
             {["Energy & Focus", "Gut & Skin", "Male 26\u201335", "Omnivore", "Moderate Stress"].map((tag) => (
-              <span key={tag} style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,240,243,0.5)" }}>
+              <span key={tag} style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(17,24,39,0.5)" }}>
                 {tag}
               </span>
             ))}
@@ -539,8 +539,8 @@ export default function StackPage() {
       <Container>
         <div
           style={{
-            backgroundColor: "rgba(19,19,22,0.6)",
-            border: "1px dashed rgba(34,211,238,0.15)",
+            backgroundColor: "#FFFFFF",
+            border: "1px dashed rgba(22,163,74,0.15)",
             borderRadius: "1rem",
             padding: "2rem",
             textAlign: "center",
@@ -549,15 +549,15 @@ export default function StackPage() {
           className="animate-fade-up"
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "0.75rem" }}>
-            <Shield size={16} color="#22D3EE" />
-            <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#22D3EE" }}>
+            <Shield size={16} color="#16A34A" />
+            <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#16A34A" }}>
               PRECISION UNLOCK
             </span>
           </div>
-          <p style={{ fontSize: "0.875rem", color: "#F0F0F3", marginBottom: "0.25rem" }}>
+          <p style={{ fontSize: "0.875rem", color: "#111827", marginBottom: "0.25rem" }}>
             Upload bloodwork to unlock 5 more recommendations
           </p>
-          <p style={{ fontSize: "0.75rem", color: "#71717A", marginBottom: "1.25rem" }}>
+          <p style={{ fontSize: "0.75rem", color: "#6B7280", marginBottom: "1.25rem" }}>
             Vitamin D, B12, Ferritin &mdash; takes 2 minutes
           </p>
           <button
@@ -565,8 +565,8 @@ export default function StackPage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
-              backgroundColor: "#22D3EE",
-              color: "#09090B",
+              backgroundColor: "#16A34A",
+              color: "#FFFFFF",
               fontFamily: "'IBM Plex Mono', monospace",
               fontSize: "0.6875rem",
               fontWeight: 700,
@@ -587,8 +587,8 @@ export default function StackPage() {
       <Container>
         <div
           style={{
-            backgroundColor: "rgba(19,19,22,0.6)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            backgroundColor: "#FFFFFF",
+            border: "1px solid rgba(0,0,0,0.06)",
             borderRadius: "1rem",
             padding: "1.5rem",
             textAlign: "center",
@@ -596,7 +596,7 @@ export default function StackPage() {
           }}
           className="animate-fade-up"
         >
-          <div style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#71717A", marginBottom: "1rem" }}>
+          <div style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#6B7280", marginBottom: "1rem" }}>
             LOCKED &mdash; NEEDS MORE DATA
           </div>
           <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "1.25rem" }}>
@@ -605,20 +605,20 @@ export default function StackPage() {
                 key={s}
                 style={{
                   padding: "0.5rem 1rem",
-                  backgroundColor: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  backgroundColor: "rgba(0,0,0,0.02)",
+                  border: "1px solid rgba(0,0,0,0.06)",
                   borderRadius: "0.5rem",
                   filter: `blur(${1 + i * 1.5}px)`,
                   opacity: 0.5,
                 }}
               >
-                <span style={{ fontSize: "0.75rem", color: "#F0F0F3" }}>{s}</span>
+                <span style={{ fontSize: "0.75rem", color: "#111827" }}>{s}</span>
               </div>
             ))}
           </div>
           <Link
             href="/chat"
-            style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", color: "#22D3EE", textDecoration: "none" }}
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", color: "#16A34A", textDecoration: "none" }}
           >
             <FlaskConical size={12} />
             REFINE YOUR PROFILE TO UNLOCK
@@ -628,7 +628,7 @@ export default function StackPage() {
 
       {/* ── Disclaimer ────────────────────────────────────── */}
       <Container>
-        <p style={{ textAlign: "center", fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(113,113,122,0.5)", lineHeight: 1.6, paddingBottom: "3rem" }}>
+        <p style={{ textAlign: "center", fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(107,114,128,0.5)", lineHeight: 1.6, paddingBottom: "3rem" }}>
           Disclaimer: StackIQ provides educational information only. This is not medical advice.
           Always consult a qualified healthcare provider before starting any supplement regimen.
         </p>
