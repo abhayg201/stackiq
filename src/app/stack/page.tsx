@@ -24,120 +24,149 @@ import {
   RotateCcw,
 } from "lucide-react";
 
-// ── Effect Bar ───────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
+   REUSABLE CONTAINER — guarantees centering via inline styles
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+function Container({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      style={{ maxWidth: "52rem", marginLeft: "auto", marginRight: "auto", paddingLeft: "1.5rem", paddingRight: "1.5rem" }}
+      className={className}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EFFECT BAR
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 function EffectBar({
   label,
   score,
-  barClass,
-  textClass,
+  color,
   delay,
 }: {
   label: string;
   score: number;
-  barClass: string;
-  textClass: string;
+  color: string;
   delay: number;
 }) {
   return (
-    <div className="group">
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="text-fg/80 text-[13px]">{label}</span>
-        <span className={`${textClass} text-xs font-mono font-semibold`}>
-          {score}
-        </span>
-      </div>
-      <div className="h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.5rem 0" }}>
+      <span style={{ width: "140px", flexShrink: 0, fontSize: "0.8125rem", color: "rgba(240,238,248,0.7)" }}>
+        {label}
+      </span>
+      <div style={{ flex: 1, height: "6px", backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "3px", overflow: "hidden" }}>
         <div
-          className={`h-full ${barClass} rounded-full transition-all duration-1000 ease-out`}
           style={{
+            height: "100%",
             width: `${score}%`,
+            backgroundColor: color,
+            borderRadius: "3px",
+            transition: "width 0.8s ease",
             transitionDelay: `${delay}ms`,
           }}
         />
       </div>
+      <span style={{ width: "28px", textAlign: "right", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "rgba(240,238,248,0.5)" }}>
+        {score}
+      </span>
     </div>
   );
 }
 
-// ── Evidence Dots ────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
+   COLOR MAP — hex values for inline styles (avoids Tailwind v4 issues)
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-function EvidenceDots({
-  level,
-  barClass,
-}: {
-  level: number;
-  barClass: string;
-}) {
-  return (
-    <div className="flex gap-1">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <div
-          key={i}
-          className={`w-2 h-2 rounded-full transition-all ${
-            i <= level ? `${barClass} shadow-sm` : "bg-white/[0.06]"
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
+const COLOR_HEX: Record<Supplement["accentColor"], string> = {
+  green: "#BAFF29",
+  blue: "#60C8FF",
+  orange: "#FF9B50",
+  purple: "#C084FC",
+  teal: "#2DD4BF",
+};
 
-// ── Caution Icon ─────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
+   SUPPLEMENT CARD
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-function CautionIcon({ severity }: { severity: string }) {
-  if (severity === "danger")
-    return <AlertTriangle size={12} className="text-siq-red shrink-0 mt-0.5" />;
-  if (severity === "warning")
-    return <AlertTriangle size={12} className="text-siq-orange shrink-0 mt-0.5" />;
-  return <Info size={12} className="text-muted shrink-0 mt-0.5" />;
-}
-
-// ── Supplement Card ──────────────────────────────────────────────────────────
-
-function SupplementCard({
-  supp,
-  rank,
-}: {
-  supp: Supplement;
-  rank: number;
-}) {
-  const [expanded, setExpanded] = useState(rank === 1);
-  const c = getColorSet(supp.accentColor);
+function SupplementCard({ supp, rank }: { supp: Supplement; rank: number }) {
+  const [open, setOpen] = useState(rank === 1);
+  const [tab, setTab] = useState<"effects" | "why" | "dosing">("effects");
+  const hex = COLOR_HEX[supp.accentColor];
 
   return (
     <div
-      className={`relative rounded-2xl border ${c.border} bg-card overflow-hidden transition-all duration-300 hover:border-white/[0.12]`}
+      style={{
+        backgroundColor: "rgba(17,17,34,0.6)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        borderRadius: "1rem",
+        overflow: "hidden",
+        transition: "border-color 0.2s",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)")}
     >
-      {/* Subtle top gradient accent */}
-      <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${c.gradient}`} />
+      {/* ── Card Header ───────────────────────────────────── */}
+      <div style={{ padding: "1.5rem" }}>
+        {/* Top row: rank + category + form */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "0.875rem" }}>
+          <span style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,238,248,0.2)" }}>
+            #{rank}
+          </span>
+          <span
+            style={{
+              fontSize: "0.625rem",
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              color: hex,
+              backgroundColor: `${hex}12`,
+              padding: "0.125rem 0.5rem",
+              borderRadius: "0.25rem",
+            }}
+          >
+            {supp.category.toUpperCase()}
+          </span>
+          <span style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,238,248,0.3)" }}>
+            {supp.form}
+          </span>
+        </div>
 
-      {/* ── Header ─────────────────────────────────────────── */}
-      <div className="p-5 sm:p-6">
-        <div className="flex items-start gap-4">
-          {/* Rank + Info */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2.5 mb-3">
-              <span className="text-muted/40 text-xs font-mono">#{rank}</span>
-              <span className={`${c.text} text-[10px] font-mono font-semibold tracking-wider px-2 py-0.5 rounded-md ${c.bgDim}`}>
-                {supp.category.toUpperCase()}
-              </span>
-              <span className="text-muted/40 text-[10px] font-mono">{supp.form}</span>
-            </div>
-
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-fg mb-1.5 leading-tight">
+        {/* Name + Score */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: "1.375rem", fontWeight: 700, color: "#F0EEF8", marginBottom: "0.375rem", lineHeight: 1.2 }}>
               {supp.name}
             </h3>
-            <p className="text-muted text-sm leading-relaxed">
+            <p style={{ fontSize: "0.8125rem", color: "rgba(82,81,106,1)", lineHeight: 1.6 }}>
               {supp.oneLiner}
             </p>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-1.5 mt-3">
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem", marginTop: "0.75rem" }}>
               {supp.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] font-mono text-muted/70 bg-white/[0.03] border border-white/[0.05] rounded-md px-2 py-0.5"
+                  style={{
+                    fontSize: "0.625rem",
+                    fontFamily: "'IBM Plex Mono', monospace",
+                    color: "rgba(240,238,248,0.35)",
+                    backgroundColor: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(255,255,255,0.04)",
+                    padding: "0.125rem 0.5rem",
+                    borderRadius: "0.25rem",
+                  }}
                 >
                   {tag}
                 </span>
@@ -146,282 +175,464 @@ function SupplementCard({
           </div>
 
           {/* Match Score */}
-          <div className={`shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl ${c.bgDim} border ${c.border} flex flex-col items-center justify-center`}>
-            <span className={`${c.text} font-mono text-2xl sm:text-3xl font-bold leading-none`}>
+          <div
+            style={{
+              flexShrink: 0,
+              width: "4.5rem",
+              height: "4.5rem",
+              borderRadius: "1rem",
+              backgroundColor: `${hex}0A`,
+              border: `1px solid ${hex}20`,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "1.625rem", fontWeight: 700, color: hex, lineHeight: 1 }}>
               {supp.matchScore}
             </span>
-            <span className="text-muted text-[8px] font-mono tracking-widest mt-0.5">
+            <span style={{ fontSize: "0.5rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,238,248,0.3)", letterSpacing: "0.12em", marginTop: "0.125rem" }}>
               MATCH
             </span>
           </div>
         </div>
 
-        {/* Quick Stats Row */}
-        <div className="grid grid-cols-3 gap-3 mt-5 pt-5 border-t border-white/[0.04]">
+        {/* Quick Stats */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: "0.75rem",
+            marginTop: "1.25rem",
+            paddingTop: "1.25rem",
+            borderTop: "1px solid rgba(255,255,255,0.04)",
+          }}
+        >
           <div>
-            <div className="text-muted text-[9px] font-mono tracking-wider mb-1.5">EVIDENCE</div>
-            <EvidenceDots level={supp.evidenceLevel} barClass={c.barBg} />
-            <div className="text-muted text-[10px] mt-1">{supp.evidenceLabel}</div>
+            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,1)", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
+              EVIDENCE
+            </div>
+            <div style={{ display: "flex", gap: "0.25rem" }}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    backgroundColor: i <= supp.evidenceLevel ? hex : "rgba(255,255,255,0.05)",
+                    transition: "background-color 0.3s",
+                  }}
+                />
+              ))}
+            </div>
+            <div style={{ fontSize: "0.625rem", color: "rgba(82,81,106,1)", marginTop: "0.25rem" }}>
+              {supp.evidenceLabel}
+            </div>
           </div>
           <div>
-            <div className="text-muted text-[9px] font-mono tracking-wider mb-1.5">STUDIES</div>
-            <div className="text-fg text-lg font-mono font-bold">{supp.studyCount}</div>
+            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,1)", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
+              STUDIES
+            </div>
+            <div style={{ fontSize: "1.125rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, color: "#F0EEF8" }}>
+              {supp.studyCount}
+            </div>
           </div>
           <div>
-            <div className="text-muted text-[9px] font-mono tracking-wider mb-1.5">MONTHLY</div>
-            <div className="text-fg text-sm font-mono font-semibold">{supp.costMonthly}</div>
+            <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,1)", letterSpacing: "0.12em", marginBottom: "0.375rem" }}>
+              MONTHLY
+            </div>
+            <div style={{ fontSize: "0.875rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#F0EEF8" }}>
+              {supp.costMonthly}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ── Expanded Details ────────────────────────────────── */}
-      {expanded && (
-        <div className="border-t border-white/[0.04]">
-          {/* Effects */}
-          <div className="p-5 sm:p-6">
-            <h4 className="text-[10px] font-mono text-muted tracking-[0.15em] mb-4">EFFECT PROFILE</h4>
-            <div className="space-y-3">
-              {supp.effects.map((eff, i) => (
-                <EffectBar
-                  key={eff.label}
-                  label={eff.label}
-                  score={eff.score}
-                  barClass={c.barBg}
-                  textClass={c.text}
-                  delay={i * 80}
-                />
-              ))}
-            </div>
+      {/* ── Expanded Section ──────────────────────────────── */}
+      {open && (
+        <>
+          {/* Tabs */}
+          <div style={{ display: "flex", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+            {(["effects", "why", "dosing"] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTab(t)}
+                style={{
+                  flex: 1,
+                  padding: "0.75rem 0",
+                  fontSize: "0.6875rem",
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  letterSpacing: "0.1em",
+                  fontWeight: tab === t ? 700 : 400,
+                  color: tab === t ? hex : "rgba(82,81,106,1)",
+                  backgroundColor: "transparent",
+                  border: "none",
+                  borderBottom: tab === t ? `2px solid ${hex}` : "2px solid transparent",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+              >
+                {t === "effects" ? "EFFECTS" : t === "why" ? "WHY YOU" : "DOSING"}
+              </button>
+            ))}
           </div>
 
-          {/* Why You */}
-          <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-            <h4 className="text-[10px] font-mono text-muted tracking-[0.15em] mb-4">WHY THIS IS IN YOUR STACK</h4>
-            <div className="space-y-2.5">
-              {supp.whyYou.map((w, i) => (
-                <div key={i} className="flex gap-3 items-start">
-                  <div
-                    className={`shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full ${
-                      w.strength === "HIGH" ? c.barBg : "bg-muted/30"
-                    }`}
-                  />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className="text-fg text-[13px] font-medium">{w.signal}</span>
-                      <span
-                        className={`text-[9px] font-mono px-1.5 py-px rounded ${
-                          w.strength === "HIGH"
-                            ? `${c.text} ${c.bgDim}`
-                            : "text-muted bg-white/[0.03]"
-                        }`}
-                      >
-                        {w.strength}
-                      </span>
+          {/* Tab Content */}
+          <div style={{ padding: "1.5rem" }}>
+            {/* Effects Tab */}
+            {tab === "effects" && (
+              <div>
+                {supp.effects.map((eff, i) => (
+                  <EffectBar key={eff.label} label={eff.label} score={eff.score} color={hex} delay={i * 60} />
+                ))}
+              </div>
+            )}
+
+            {/* Why You Tab */}
+            {tab === "why" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                {supp.whyYou.map((w, i) => (
+                  <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                    <div
+                      style={{
+                        flexShrink: 0,
+                        width: "6px",
+                        height: "6px",
+                        borderRadius: "50%",
+                        marginTop: "0.5rem",
+                        backgroundColor: w.strength === "HIGH" ? hex : "rgba(255,255,255,0.1)",
+                      }}
+                    />
+                    <div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                        <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#F0EEF8" }}>
+                          {w.signal}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "0.5625rem",
+                            fontFamily: "'IBM Plex Mono', monospace",
+                            padding: "0.0625rem 0.375rem",
+                            borderRadius: "0.1875rem",
+                            color: w.strength === "HIGH" ? hex : "rgba(82,81,106,1)",
+                            backgroundColor: w.strength === "HIGH" ? `${hex}12` : "rgba(255,255,255,0.03)",
+                          }}
+                        >
+                          {w.strength}
+                        </span>
+                      </div>
+                      <p style={{ fontSize: "0.75rem", color: "rgba(82,81,106,1)", lineHeight: 1.6 }}>
+                        {w.note}
+                      </p>
                     </div>
-                    <p className="text-muted text-xs leading-relaxed">{w.note}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Dosing */}
-          <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-            <h4 className="text-[10px] font-mono text-muted tracking-[0.15em] mb-4">DOSING PROTOCOL</h4>
-            <div className="grid grid-cols-2 gap-2.5">
-              {[
-                { label: "DOSE", value: supp.dosing.amount, icon: Pill },
-                { label: "TIMING", value: supp.dosing.timing, icon: Clock },
-                { label: "FORM", value: supp.dosing.form, icon: Beaker },
-                { label: "ONSET", value: supp.dosing.onset, icon: TrendingUp },
-              ].map((d) => (
-                <div key={d.label} className="bg-white/[0.02] rounded-xl p-3.5">
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <d.icon size={11} className="text-muted/50" />
-                    <span className="text-muted text-[9px] font-mono tracking-wider">{d.label}</span>
-                  </div>
-                  <div className="text-fg text-[13px] leading-snug">{d.value}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Cautions */}
-          {supp.cautions.length > 0 && (
-            <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-              <h4 className="text-[10px] font-mono text-muted tracking-[0.15em] mb-3">CAUTIONS</h4>
-              <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl p-4 space-y-2">
-                {supp.cautions.map((caut, i) => (
-                  <div key={i} className="flex gap-2.5">
-                    <CautionIcon severity={caut.severity} />
-                    <span className="text-muted text-xs leading-relaxed">{caut.text}</span>
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-        </div>
+            )}
+
+            {/* Dosing Tab */}
+            {tab === "dosing" && (
+              <div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.625rem", marginBottom: "1rem" }}>
+                  {[
+                    { label: "DOSE", value: supp.dosing.amount, Icon: Pill },
+                    { label: "TIMING", value: supp.dosing.timing, Icon: Clock },
+                    { label: "FORM", value: supp.dosing.form, Icon: Beaker },
+                    { label: "ONSET", value: supp.dosing.onset, Icon: TrendingUp },
+                  ].map((d) => (
+                    <div
+                      key={d.label}
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.02)",
+                        borderRadius: "0.75rem",
+                        padding: "0.875rem",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginBottom: "0.375rem" }}>
+                        <d.Icon size={11} color="rgba(82,81,106,1)" />
+                        <span style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,1)", letterSpacing: "0.1em" }}>
+                          {d.label}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: "0.8125rem", color: "#F0EEF8", lineHeight: 1.4 }}>
+                        {d.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Cautions */}
+                {supp.cautions.length > 0 && (
+                  <div
+                    style={{
+                      backgroundColor: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.04)",
+                      borderRadius: "0.75rem",
+                      padding: "1rem",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", marginBottom: "0.625rem" }}>
+                      <AlertTriangle size={12} color="#FF9B50" />
+                      <span style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#FF9B50", letterSpacing: "0.1em" }}>
+                        CAUTIONS
+                      </span>
+                    </div>
+                    {supp.cautions.map((c, i) => (
+                      <div key={i} style={{ display: "flex", gap: "0.5rem", marginBottom: i < supp.cautions.length - 1 ? "0.375rem" : 0 }}>
+                        {c.severity === "danger" ? (
+                          <AlertTriangle size={11} color="#FF6B6B" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
+                        ) : c.severity === "warning" ? (
+                          <AlertTriangle size={11} color="#FF9B50" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
+                        ) : (
+                          <Info size={11} color="rgba(82,81,106,1)" style={{ flexShrink: 0, marginTop: "0.1875rem" }} />
+                        )}
+                        <span style={{ fontSize: "0.75rem", color: "rgba(240,238,248,0.5)", lineHeight: 1.5 }}>
+                          {c.text}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </>
       )}
 
-      {/* ── Expand Toggle ──────────────────────────────────── */}
+      {/* ── Expand/Collapse ───────────────────────────────── */}
       <button
-        onClick={() => setExpanded(!expanded)}
-        className="w-full py-3 border-t border-white/[0.04] flex items-center justify-center gap-1.5 text-muted hover:text-fg text-[11px] font-mono tracking-wider transition-colors bg-white/[0.01] hover:bg-white/[0.02]"
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%",
+          padding: "0.75rem",
+          borderTop: "1px solid rgba(255,255,255,0.04)",
+          backgroundColor: "rgba(255,255,255,0.01)",
+          border: "none",
+          borderTopStyle: "solid",
+          borderTopWidth: "1px",
+          borderTopColor: "rgba(255,255,255,0.04)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.375rem",
+          fontSize: "0.6875rem",
+          fontFamily: "'IBM Plex Mono', monospace",
+          letterSpacing: "0.1em",
+          color: "rgba(82,81,106,1)",
+          cursor: "pointer",
+          transition: "color 0.2s",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#F0EEF8")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(82,81,106,1)")}
       >
         <ChevronDown
           size={14}
-          className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.3s" }}
         />
-        {expanded ? "COLLAPSE" : "VIEW DETAILS"}
+        {open ? "COLLAPSE" : "VIEW DETAILS"}
       </button>
     </div>
   );
 }
 
-// ── Stack Page ───────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
+   STACK PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 export default function StackPage() {
   const supplements = TEST_SUPPLEMENTS;
-  const avgMatch = Math.round(
-    supplements.reduce((a, s) => a + s.matchScore, 0) / supplements.length
-  );
+  const avgMatch = Math.round(supplements.reduce((a, s) => a + s.matchScore, 0) / supplements.length);
   const totalCost = getTotalCostRange(supplements);
 
   return (
-    <div className="min-h-screen bg-base">
+    <div style={{ minHeight: "100vh", backgroundColor: "#06060E" }}>
       <Navbar />
 
-      {/* ── Hero / Summary ────────────────────────────────────── */}
-      <div className="relative overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/[0.04] rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="relative z-10 w-full max-w-3xl mx-auto px-6 sm:px-10 pt-10 pb-8">
-          {/* Top label */}
-          <div className="flex items-center justify-between mb-8 animate-fade-up">
-            <div className="flex items-center gap-2">
-              <Sparkles size={14} className="text-accent" />
-              <span className="text-accent text-[10px] font-mono tracking-[0.15em]">
+      {/* ── Hero Summary ──────────────────────────────────── */}
+      <Container>
+        <div style={{ paddingTop: "2.5rem", paddingBottom: "2rem" }}>
+          {/* Top Row */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }} className="animate-fade-up">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Sparkles size={14} color="#BAFF29" />
+              <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#BAFF29" }}>
                 YOUR PERSONALISED STACK
               </span>
             </div>
             <Link
               href="/chat"
-              className="flex items-center gap-1.5 text-muted hover:text-accent text-[11px] font-mono transition-colors"
+              style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,1)", textDecoration: "none", transition: "color 0.2s" }}
             >
               <RotateCcw size={12} />
               RETAKE
             </Link>
           </div>
 
-          {/* Summary Stats */}
-          <div
-            className="grid grid-cols-3 gap-4 animate-fade-up"
-            style={{ animationDelay: "0.05s" }}
-          >
-            <div className="bg-card border border-stroke rounded-xl p-4 text-center">
-              <div className="text-accent font-mono text-3xl font-bold">{supplements.length}</div>
-              <div className="text-muted text-[10px] font-mono tracking-wider mt-1">SUPPLEMENTS</div>
+          {/* Summary Cards */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.75rem", marginBottom: "1rem" }} className="animate-fade-up">
+            <div style={{ backgroundColor: "rgba(17,17,34,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "2rem", fontWeight: 700, color: "#BAFF29", lineHeight: 1 }}>
+                {supplements.length}
+              </div>
+              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "rgba(82,81,106,1)", marginTop: "0.375rem" }}>
+                SUPPLEMENTS
+              </div>
             </div>
-            <div className="bg-card border border-stroke rounded-xl p-4 text-center">
-              <div className="text-fg font-mono text-3xl font-bold">{avgMatch}%</div>
-              <div className="text-muted text-[10px] font-mono tracking-wider mt-1">AVG MATCH</div>
+            <div style={{ backgroundColor: "rgba(17,17,34,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "2rem", fontWeight: 700, color: "#F0EEF8", lineHeight: 1 }}>
+                {avgMatch}%
+              </div>
+              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "rgba(82,81,106,1)", marginTop: "0.375rem" }}>
+                AVG MATCH
+              </div>
             </div>
-            <div className="bg-card border border-stroke rounded-xl p-4 text-center">
-              <div className="text-fg font-mono text-lg font-bold leading-tight pt-1">{totalCost}</div>
-              <div className="text-muted text-[10px] font-mono tracking-wider mt-1">MONTHLY</div>
+            <div style={{ backgroundColor: "rgba(17,17,34,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.75rem", padding: "1.25rem", textAlign: "center" }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "1rem", fontWeight: 700, color: "#F0EEF8", lineHeight: 1, paddingTop: "0.375rem" }}>
+                {totalCost}
+              </div>
+              <div style={{ fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.12em", color: "rgba(82,81,106,1)", marginTop: "0.375rem" }}>
+                MONTHLY
+              </div>
             </div>
           </div>
 
-          {/* Context Bar */}
+          {/* Based On Bar */}
           <div
-            className="mt-4 bg-card border border-stroke rounded-xl px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 animate-fade-up"
-            style={{ animationDelay: "0.1s" }}
+            style={{
+              backgroundColor: "rgba(17,17,34,0.6)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: "0.75rem",
+              padding: "0.75rem 1rem",
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "0 1rem",
+            }}
+            className="animate-fade-up"
           >
-            <span className="text-muted text-[10px] font-mono tracking-wider">BASED ON:</span>
-            {[
-              "Energy & Focus",
-              "Gut & Skin",
-              "Male 26\u201335",
-              "Omnivore",
-              "Moderate Stress",
-            ].map((tag) => (
-              <span key={tag} className="text-fg/70 text-[11px] font-mono">
+            <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.1em", color: "rgba(82,81,106,1)" }}>
+              BASED ON:
+            </span>
+            {["Energy & Focus", "Gut & Skin", "Male 26\u201335", "Omnivore", "Moderate Stress"].map((tag) => (
+              <span key={tag} style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(240,238,248,0.5)" }}>
                 {tag}
               </span>
             ))}
           </div>
         </div>
-      </div>
+      </Container>
 
-      {/* ── Supplement Cards ──────────────────────────────────── */}
-      <div className="w-full max-w-3xl mx-auto px-6 sm:px-10 pb-12">
-        <div className="space-y-4">
+      {/* ── Supplement Cards ──────────────────────────────── */}
+      <Container>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem", paddingBottom: "2rem" }}>
           {supplements.map((supp, i) => (
-            <div
-              key={supp.id}
-              className="animate-fade-up"
-              style={{ animationDelay: `${0.15 + i * 0.06}s` }}
-            >
+            <div key={supp.id} className="animate-fade-up" style={{ animationDelay: `${0.1 + i * 0.05}s` }}>
               <SupplementCard supp={supp} rank={i + 1} />
             </div>
           ))}
         </div>
+      </Container>
 
-        {/* ── Precision Unlock CTA ──────────────────────────── */}
+      {/* ── Precision CTA ─────────────────────────────────── */}
+      <Container>
         <div
-          className="mt-8 bg-card border border-accent/15 border-dashed rounded-2xl p-6 text-center animate-fade-up"
-          style={{ animationDelay: "0.5s" }}
+          style={{
+            backgroundColor: "rgba(17,17,34,0.6)",
+            border: "1px dashed rgba(186,255,41,0.15)",
+            borderRadius: "1rem",
+            padding: "2rem",
+            textAlign: "center",
+            marginBottom: "1rem",
+          }}
+          className="animate-fade-up"
         >
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <Shield size={16} className="text-accent" />
-            <span className="text-accent text-[10px] font-mono tracking-[0.15em]">PRECISION UNLOCK</span>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "0.75rem" }}>
+            <Shield size={16} color="#BAFF29" />
+            <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "#BAFF29" }}>
+              PRECISION UNLOCK
+            </span>
           </div>
-          <p className="text-fg text-sm mb-1">
-            Upload bloodwork to unlock 5 more personalised recommendations
+          <p style={{ fontSize: "0.875rem", color: "#F0EEF8", marginBottom: "0.25rem" }}>
+            Upload bloodwork to unlock 5 more recommendations
           </p>
-          <p className="text-muted text-xs mb-5">
-            Vitamin D, B12, Ferritin, and more — takes 2 minutes
+          <p style={{ fontSize: "0.75rem", color: "rgba(82,81,106,1)", marginBottom: "1.25rem" }}>
+            Vitamin D, B12, Ferritin &mdash; takes 2 minutes
           </p>
-          <button className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-xs font-bold tracking-wider px-6 py-3 rounded-xl transition-all">
+          <button
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              backgroundColor: "#BAFF29",
+              color: "#06060E",
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontSize: "0.6875rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "0.75rem",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
             UPLOAD BLOODWORK
             <ArrowRight size={14} />
           </button>
         </div>
+      </Container>
 
-        {/* ── Locked Supplements Teaser ──────────────────────── */}
+      {/* ── Locked Supplements ────────────────────────────── */}
+      <Container>
         <div
-          className="mt-6 bg-card border border-stroke rounded-2xl p-6 text-center animate-fade-up"
-          style={{ animationDelay: "0.55s" }}
+          style={{
+            backgroundColor: "rgba(17,17,34,0.6)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: "1rem",
+            padding: "1.5rem",
+            textAlign: "center",
+            marginBottom: "2rem",
+          }}
+          className="animate-fade-up"
         >
-          <div className="text-muted text-[10px] font-mono tracking-[0.15em] mb-4">LOCKED — NEEDS MORE DATA</div>
-          <div className="flex gap-2.5 justify-center mb-5 flex-wrap">
+          <div style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.15em", color: "rgba(82,81,106,1)", marginBottom: "1rem" }}>
+            LOCKED &mdash; NEEDS MORE DATA
+          </div>
+          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "1.25rem" }}>
             {["Omega-3 TG Form", "Vitamin D3+K2", "Creatine Mono", "+3 more"].map((s, i) => (
               <div
                 key={s}
-                className="px-4 py-2 bg-white/[0.02] border border-white/[0.04] rounded-lg"
-                style={{ filter: `blur(${1.5 + i * 1.5}px)`, opacity: 0.5 }}
+                style={{
+                  padding: "0.5rem 1rem",
+                  backgroundColor: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.04)",
+                  borderRadius: "0.5rem",
+                  filter: `blur(${1 + i * 1.5}px)`,
+                  opacity: 0.5,
+                }}
               >
-                <span className="text-fg text-xs">{s}</span>
+                <span style={{ fontSize: "0.75rem", color: "#F0EEF8" }}>{s}</span>
               </div>
             ))}
           </div>
           <Link
             href="/chat"
-            className="inline-flex items-center gap-2 text-accent text-xs font-mono hover:underline transition"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", color: "#BAFF29", textDecoration: "none" }}
           >
             <FlaskConical size={12} />
             REFINE YOUR PROFILE TO UNLOCK
           </Link>
         </div>
+      </Container>
 
-        {/* ── Disclaimer ──────────────────────────────────────── */}
-        <p className="mt-10 text-center text-muted/30 text-[10px] font-mono leading-relaxed max-w-md mx-auto">
-          Disclaimer: StackIQ provides educational information only. This is not
-          medical advice. Always consult a qualified healthcare provider before
-          starting any supplement regimen.
+      {/* ── Disclaimer ────────────────────────────────────── */}
+      <Container>
+        <p style={{ textAlign: "center", fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,0.5)", lineHeight: 1.6, paddingBottom: "3rem" }}>
+          Disclaimer: StackIQ provides educational information only. This is not medical advice.
+          Always consult a qualified healthcare provider before starting any supplement regimen.
         </p>
-      </div>
+      </Container>
     </div>
   );
 }

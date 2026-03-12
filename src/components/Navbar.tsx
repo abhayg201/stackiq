@@ -61,10 +61,10 @@ export default function Navbar() {
                 CHAT
               </Link>
               <Link
-                href="/dashboard"
+                href="/stack"
                 className="px-4 py-1.5 text-[11px] font-mono tracking-wider text-muted hover:text-accent border border-stroke hover:border-accent/40 rounded-md transition-all"
               >
-                DASHBOARD
+                MY STACK
               </Link>
               <div className="w-px h-5 bg-stroke mx-1" />
               <span className="text-muted text-xs font-mono truncate max-w-[140px]">
@@ -119,11 +119,11 @@ export default function Navbar() {
                   Chat
                 </Link>
                 <Link
-                  href="/dashboard"
+                  href="/stack"
                   onClick={() => setMenuOpen(false)}
                   className="px-4 py-2.5 text-sm font-mono text-fg hover:bg-faint rounded-lg transition"
                 >
-                  Dashboard
+                  My Stack
                 </Link>
                 <hr className="border-stroke" />
                 <span className="px-4 text-muted text-xs font-mono">
