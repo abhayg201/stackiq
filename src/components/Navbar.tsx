@@ -38,14 +38,14 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{ position: "sticky", top: 0, zIndex: 50, backgroundColor: "rgba(6,6,14,0.8)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+    <nav style={{ position: "sticky", top: 0, zIndex: 50, backgroundColor: "rgba(9,9,11,0.8)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
       <div style={{ maxWidth: "52rem", marginLeft: "auto", marginRight: "auto", paddingLeft: "1.5rem", paddingRight: "1.5rem", height: "3.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center group-hover:shadow-[0_0_16px_rgba(186,255,41,0.3)] transition-shadow">
-            <span className="text-[#06060E] text-sm font-black">&#9672;</span>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.625rem", textDecoration: "none" }}>
+          <div style={{ width: "1.75rem", height: "1.75rem", backgroundColor: "#22D3EE", borderRadius: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "#042F2E", fontSize: "0.875rem", fontWeight: 900 }}>&#9672;</span>
           </div>
-          <span className="text-fg text-[15px] font-mono font-bold tracking-wide">
+          <span style={{ color: "#F0F0F3", fontSize: "0.9375rem", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, letterSpacing: "0.04em" }}>
             STACKIQ
           </span>
         </Link>
@@ -66,7 +66,7 @@ export default function Navbar() {
               >
                 MY STACK
               </Link>
-              <div className="w-px h-5 bg-stroke mx-1" />
+              <div style={{ width: "1px", height: "1.25rem", backgroundColor: "rgba(255,255,255,0.08)", marginLeft: "0.25rem", marginRight: "0.25rem" }} />
               <span className="text-muted text-xs font-mono truncate max-w-[140px]">
                 {user.email}
               </span>
@@ -88,7 +88,18 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/auth/signup"
-                className="px-5 py-2 text-[11px] font-mono tracking-wider font-bold text-[#06060E] bg-accent hover:bg-accent/90 rounded-lg transition-all shadow-[0_0_20px_rgba(186,255,41,0.15)]"
+                style={{
+                  padding: "0.5rem 1.25rem",
+                  fontSize: "0.6875rem",
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  letterSpacing: "0.08em",
+                  fontWeight: 700,
+                  color: "#042F2E",
+                  backgroundColor: "#22D3EE",
+                  borderRadius: "0.5rem",
+                  textDecoration: "none",
+                  boxShadow: "0 0 20px rgba(34,211,238,0.15)",
+                }}
               >
                 GET STARTED
               </Link>
@@ -107,8 +118,8 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-stroke bg-surface animate-fade-in">
-          <div className="px-4 py-4 flex flex-col gap-3">
+        <div className="md:hidden animate-fade-in" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", backgroundColor: "#131316" }}>
+          <div style={{ padding: "1rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             {user ? (
               <>
                 <Link
@@ -125,8 +136,8 @@ export default function Navbar() {
                 >
                   My Stack
                 </Link>
-                <hr className="border-stroke" />
-                <span className="px-4 text-muted text-xs font-mono">
+                <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.08)" }} />
+                <span style={{ padding: "0 1rem", color: "#71717A", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" }}>
                   {user.email}
                 </span>
                 <button
@@ -151,7 +162,17 @@ export default function Navbar() {
                 <Link
                   href="/auth/signup"
                   onClick={() => setMenuOpen(false)}
-                  className="px-4 py-2.5 text-sm font-mono font-bold text-[#06060E] bg-accent rounded-lg text-center"
+                  style={{
+                    padding: "0.625rem 1rem",
+                    fontSize: "0.875rem",
+                    fontFamily: "'IBM Plex Mono', monospace",
+                    fontWeight: 700,
+                    color: "#042F2E",
+                    backgroundColor: "#22D3EE",
+                    borderRadius: "0.5rem",
+                    textDecoration: "none",
+                    textAlign: "center",
+                  }}
                 >
                   Get Started
                 </Link>

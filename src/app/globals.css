@@ -2,25 +2,25 @@
 
 /* ── StackIQ Design Tokens (Tailwind v4) ──────────────────────── */
 @theme inline {
-  /* Colors — direct values, no var() nesting */
-  --color-base: #06060E;
-  --color-surface: #0D0D1A;
-  --color-card: #111122;
-  --color-stroke: rgba(255,255,255,0.07);
+  /* Colors — Deep Slate + Cyan palette */
+  --color-base: #09090B;
+  --color-surface: #131316;
+  --color-card: #1C1C22;
+  --color-stroke: rgba(255,255,255,0.08);
   --color-stroke-hi: rgba(255,255,255,0.14);
-  --color-fg: #F0EEF8;
-  --color-muted: #52516A;
-  --color-faint: #1C1C30;
-  --color-accent: #BAFF29;
-  --color-accent-dim: rgba(186,255,41,0.12);
-  --color-siq-blue: #60C8FF;
-  --color-blue-dim: rgba(96,200,255,0.12);
-  --color-siq-orange: #FF9B50;
-  --color-orange-dim: rgba(255,155,80,0.12);
-  --color-siq-purple: #C084FC;
-  --color-purple-dim: rgba(192,132,252,0.12);
-  --color-siq-red: #FF6B6B;
-  --color-siq-teal: #2DD4BF;
+  --color-fg: #F0F0F3;
+  --color-muted: #71717A;
+  --color-faint: #27272A;
+  --color-accent: #22D3EE;
+  --color-accent-dim: rgba(34,211,238,0.12);
+  --color-siq-blue: #38BDF8;
+  --color-blue-dim: rgba(56,189,248,0.12);
+  --color-siq-orange: #FB923C;
+  --color-orange-dim: rgba(251,146,60,0.12);
+  --color-siq-purple: #A78BFA;
+  --color-purple-dim: rgba(167,139,250,0.12);
+  --color-siq-red: #F87171;
+  --color-siq-teal: #34D399;
 
   /* Typography */
   --font-serif: 'Fraunces', serif;
@@ -36,8 +36,8 @@
 }
 
 body {
-  background: #06060E;
-  color: #F0EEF8;
+  background: #09090B;
+  color: #F0F0F3;
   font-family: 'Epilogue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -89,8 +89,8 @@ button {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(186,255,41,0.1); }
-  50% { box-shadow: 0 0 40px rgba(186,255,41,0.25); }
+  0%, 100% { box-shadow: 0 0 20px rgba(34,211,238,0.1); }
+  50% { box-shadow: 0 0 40px rgba(34,211,238,0.25); }
 }
 
 .animate-fade-up {

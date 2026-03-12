@@ -46,12 +46,12 @@ function SmartTile({
         gap: "0.375rem",
         padding: "0.875rem 0.5rem",
         borderRadius: "0.75rem",
-        border: selected ? "1px solid rgba(186,255,41,0.3)" : "1px solid rgba(255,255,255,0.06)",
-        backgroundColor: selected ? "rgba(186,255,41,0.06)" : "rgba(255,255,255,0.02)",
+        border: selected ? "1px solid rgba(34,211,238,0.3)" : "1px solid rgba(255,255,255,0.06)",
+        backgroundColor: selected ? "rgba(34,211,238,0.06)" : "rgba(255,255,255,0.02)",
         cursor: "pointer",
         transition: "all 0.2s",
         textAlign: "center",
-        boxShadow: selected ? "0 0 20px rgba(186,255,41,0.06)" : "none",
+        boxShadow: selected ? "0 0 20px rgba(34,211,238,0.06)" : "none",
       }}
     >
       <span style={{ fontSize: "1.25rem", lineHeight: 1 }}>{tile.emoji}</span>
@@ -60,19 +60,19 @@ function SmartTile({
           fontSize: "0.75rem",
           fontWeight: 500,
           lineHeight: 1.3,
-          color: selected ? "#BAFF29" : "rgba(240,238,248,0.9)",
+          color: selected ? "#22D3EE" : "rgba(240,240,243,0.9)",
         }}
       >
         {tile.label}
       </span>
       {tile.description && (
-        <span style={{ fontSize: "0.625rem", color: "rgba(82,81,106,0.6)", lineHeight: 1.3 }}>
+        <span style={{ fontSize: "0.625rem", color: "rgba(113,113,122,0.6)", lineHeight: 1.3 }}>
           {tile.description}
         </span>
       )}
       {selected && (
         <div style={{ position: "absolute", top: "-6px", right: "-6px" }}>
-          <CheckCircle2 size={15} color="#BAFF29" />
+          <CheckCircle2 size={15} color="#22D3EE" />
         </div>
       )}
     </button>
@@ -89,16 +89,16 @@ function TypingIndicator() {
           width: "28px",
           height: "28px",
           borderRadius: "0.5rem",
-          backgroundColor: "rgba(186,255,41,0.12)",
+          backgroundColor: "rgba(34,211,238,0.12)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
         }}
       >
-        <Sparkles size={13} color="#BAFF29" />
+        <Sparkles size={13} color="#22D3EE" />
       </div>
-      <div style={{ backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "1rem 1rem 1rem 0.375rem", padding: "0.75rem 1rem" }}>
+      <div style={{ backgroundColor: "rgba(255,255,255,0.06)", borderRadius: "1rem 1rem 1rem 0.375rem", padding: "0.75rem 1rem" }}>
         <div style={{ display: "flex", gap: "0.375rem" }}>
           {[0, 1, 2].map((i) => (
             <div
@@ -106,7 +106,7 @@ function TypingIndicator() {
               style={{
                 width: "6px",
                 height: "6px",
-                backgroundColor: "rgba(186,255,41,0.5)",
+                backgroundColor: "rgba(34,211,238,0.5)",
                 borderRadius: "50%",
                 animation: `typeDot 1s ease ${i * 0.2}s infinite`,
               }}
@@ -131,15 +131,15 @@ function ProgressBar({
 }) {
   const pct = phase === "ai" ? 100 : (current / total) * 100;
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.625rem 1.25rem", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-      <div style={{ flex: 1, height: "4px", backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "2px", overflow: "hidden" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.625rem 1.25rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <div style={{ flex: 1, height: "4px", backgroundColor: "rgba(255,255,255,0.06)", borderRadius: "2px", overflow: "hidden" }}>
         <div
-          style={{ height: "100%", width: `${pct}%`, backgroundColor: "#BAFF29", borderRadius: "2px", transition: "width 0.5s ease" }}
+          style={{ height: "100%", width: `${pct}%`, backgroundColor: "#22D3EE", borderRadius: "2px", transition: "width 0.5s ease" }}
         />
       </div>
-      <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,1)", flexShrink: 0 }}>
+      <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "#71717A", flexShrink: 0 }}>
         {phase === "ai" ? (
-          <span style={{ color: "#BAFF29", display: "flex", alignItems: "center", gap: "0.25rem" }}>
+          <span style={{ color: "#22D3EE", display: "flex", alignItems: "center", gap: "0.25rem" }}>
             <Sparkles size={10} /> AI MODE
           </span>
         ) : (
@@ -337,7 +337,7 @@ export default function ChatPage() {
   const currentTileStep = phase === "tiles" ? TILE_STEPS[tileStep] : null;
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#06060E", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#09090B", display: "flex", flexDirection: "column" }}>
       <Navbar />
 
       {/* Centered chat container */}
@@ -364,7 +364,7 @@ export default function ChatPage() {
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
-              backgroundColor: "rgba(17,17,34,0.6)",
+              backgroundColor: "rgba(19,19,22,0.6)",
               border: "1px solid rgba(255,255,255,0.06)",
               borderRadius: "1rem",
               maxHeight: "calc(100vh - 120px)",
@@ -374,7 +374,7 @@ export default function ChatPage() {
             <div
               style={{
                 padding: "0.875rem 1.25rem",
-                borderBottom: "1px solid rgba(255,255,255,0.04)",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
                 display: "flex",
                 alignItems: "center",
                 gap: "0.75rem",
@@ -384,7 +384,7 @@ export default function ChatPage() {
                 style={{
                   width: "32px",
                   height: "32px",
-                  backgroundColor: "rgba(186,255,41,0.12)",
+                  backgroundColor: "rgba(34,211,238,0.12)",
                   borderRadius: "0.75rem",
                   display: "flex",
                   alignItems: "center",
@@ -392,12 +392,12 @@ export default function ChatPage() {
                   flexShrink: 0,
                 }}
               >
-                <Sparkles size={15} color="#BAFF29" />
+                <Sparkles size={15} color="#22D3EE" />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "#F0EEF8" }}>StackIQ</div>
-                <div style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(186,255,41,0.6)", display: "flex", alignItems: "center", gap: "0.375rem" }}>
-                  <span style={{ width: "6px", height: "6px", backgroundColor: "#BAFF29", borderRadius: "50%", display: "inline-block" }} />
+                <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "#F0F0F3" }}>StackIQ</div>
+                <div style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(34,211,238,0.6)", display: "flex", alignItems: "center", gap: "0.375rem" }}>
+                  <span style={{ width: "6px", height: "6px", backgroundColor: "#22D3EE", borderRadius: "50%", display: "inline-block" }} />
                   {phase === "done"
                     ? "Stack ready"
                     : phase === "ai"
@@ -413,20 +413,20 @@ export default function ChatPage() {
                     <div
                       key={key}
                       style={{
-                        backgroundColor: "rgba(186,255,41,0.06)",
-                        border: "1px solid rgba(186,255,41,0.15)",
+                        backgroundColor: "rgba(34,211,238,0.06)",
+                        border: "1px solid rgba(34,211,238,0.15)",
                         borderRadius: "0.25rem",
                         padding: "0.125rem 0.5rem",
                       }}
                     >
-                      <span style={{ color: "rgba(186,255,41,0.7)", fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", textTransform: "uppercase" }}>
+                      <span style={{ color: "rgba(34,211,238,0.7)", fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", textTransform: "uppercase" }}>
                         {key.split("_")[0]}
                       </span>
                     </div>
                   ))}
                   {Object.keys(userProfile).length > 3 && (
                     <div style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.25rem", padding: "0.125rem 0.5rem" }}>
-                      <span style={{ color: "rgba(82,81,106,1)", fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace" }}>
+                      <span style={{ color: "#71717A", fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace" }}>
                         +{Object.keys(userProfile).length - 3}
                       </span>
                     </div>
@@ -462,7 +462,7 @@ export default function ChatPage() {
                           width: "26px",
                           height: "26px",
                           borderRadius: "0.375rem",
-                          backgroundColor: "rgba(186,255,41,0.1)",
+                          backgroundColor: "rgba(34,211,238,0.1)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -470,7 +470,7 @@ export default function ChatPage() {
                           marginTop: "2px",
                         }}
                       >
-                        <Sparkles size={11} color="#BAFF29" />
+                        <Sparkles size={11} color="#22D3EE" />
                       </div>
                       <div
                         style={{
@@ -489,14 +489,14 @@ export default function ChatPage() {
                   <div key={i} style={{ display: "flex", justifyContent: "flex-end" }} className="animate-msg-in">
                     <div
                       style={{
-                        backgroundColor: "rgba(186,255,41,0.06)",
-                        border: "1px solid rgba(186,255,41,0.12)",
+                        backgroundColor: "rgba(34,211,238,0.06)",
+                        border: "1px solid rgba(34,211,238,0.12)",
                         borderRadius: "1rem 1rem 0.375rem 1rem",
                         padding: "0.75rem 1rem",
                         maxWidth: "80%",
                       }}
                     >
-                      <p style={{ fontSize: "0.8125rem", color: "#F0EEF8", lineHeight: 1.6 }}>{msg.content}</p>
+                      <p style={{ fontSize: "0.8125rem", color: "#F0F0F3", lineHeight: 1.6 }}>{msg.content}</p>
                     </div>
                   </div>
                 );
@@ -508,7 +508,7 @@ export default function ChatPage() {
               {phase === "tiles" && currentTileStep && !typing && (
                 <div style={{ paddingLeft: "2.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }} className="animate-msg-in">
                   {currentTileStep.subtitle && (
-                    <p style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,0.6)" }}>
+                    <p style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(113,113,122,0.6)" }}>
                       {currentTileStep.subtitle}
                     </p>
                   )}
@@ -537,8 +537,8 @@ export default function ChatPage() {
                         alignItems: "center",
                         alignSelf: "flex-start",
                         gap: "0.5rem",
-                        backgroundColor: "#BAFF29",
-                        color: "#06060E",
+                        backgroundColor: "#22D3EE",
+                        color: "#09090B",
                         fontFamily: "'IBM Plex Mono', monospace",
                         fontSize: "0.6875rem",
                         fontWeight: 700,
@@ -563,18 +563,18 @@ export default function ChatPage() {
                 <div style={{ paddingLeft: "2.25rem" }} className="animate-msg-in">
                   <div
                     style={{
-                      backgroundColor: "rgba(186,255,41,0.03)",
-                      border: "1px solid rgba(186,255,41,0.12)",
+                      backgroundColor: "rgba(34,211,238,0.03)",
+                      border: "1px solid rgba(34,211,238,0.12)",
                       borderRadius: "0.75rem",
                       padding: "1.5rem",
                       textAlign: "center",
                     }}
                   >
-                    <Sparkles size={22} color="#BAFF29" style={{ margin: "0 auto 0.75rem" }} />
-                    <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "#F0EEF8", marginBottom: "0.25rem" }}>
+                    <Sparkles size={22} color="#22D3EE" style={{ margin: "0 auto 0.75rem" }} />
+                    <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "#F0F0F3", marginBottom: "0.25rem" }}>
                       Your personalised stack is ready
                     </p>
-                    <p style={{ fontSize: "0.75rem", color: "rgba(82,81,106,1)", marginBottom: "1rem" }}>
+                    <p style={{ fontSize: "0.75rem", color: "#71717A", marginBottom: "1rem" }}>
                       4 supplements matched with detailed dosing and evidence.
                     </p>
                     <button
@@ -583,8 +583,8 @@ export default function ChatPage() {
                         display: "inline-flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        backgroundColor: "#BAFF29",
-                        color: "#06060E",
+                        backgroundColor: "#22D3EE",
+                        color: "#09090B",
                         fontFamily: "'IBM Plex Mono', monospace",
                         fontSize: "0.6875rem",
                         fontWeight: 700,
@@ -593,7 +593,7 @@ export default function ChatPage() {
                         borderRadius: "0.5rem",
                         border: "none",
                         cursor: "pointer",
-                        boxShadow: "0 0 24px rgba(186,255,41,0.1)",
+                        boxShadow: "0 0 24px rgba(34,211,238,0.1)",
                       }}
                     >
                       VIEW MY STACK
@@ -608,7 +608,7 @@ export default function ChatPage() {
 
             {/* Input (AI phase) */}
             {phase === "ai" && (
-              <div style={{ padding: "0.75rem 1.25rem", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+              <div style={{ padding: "0.75rem 1.25rem", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                 <div style={{ display: "flex", gap: "0.5rem" }}>
                   <input
                     type="text"
@@ -623,7 +623,7 @@ export default function ChatPage() {
                       border: "1px solid rgba(255,255,255,0.06)",
                       borderRadius: "0.75rem",
                       padding: "0.75rem 1rem",
-                      color: "#F0EEF8",
+                      color: "#F0F0F3",
                       fontSize: "0.875rem",
                       outline: "none",
                       fontFamily: "'Epilogue', sans-serif",
@@ -633,8 +633,8 @@ export default function ChatPage() {
                     onClick={sendAIMessage}
                     disabled={aiLoading || !inputValue.trim()}
                     style={{
-                      backgroundColor: "#BAFF29",
-                      color: "#06060E",
+                      backgroundColor: "#22D3EE",
+                      color: "#09090B",
                       padding: "0.75rem",
                       borderRadius: "0.75rem",
                       border: "none",

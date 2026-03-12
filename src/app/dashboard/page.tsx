@@ -11,8 +11,8 @@ export default function DashboardRedirect() {
   }, [router]);
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#06060E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", color: "rgba(82,81,106,1)" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#09090B", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", color: "#71717A" }}>
         Redirecting to your stack...
       </p>
     </div>
