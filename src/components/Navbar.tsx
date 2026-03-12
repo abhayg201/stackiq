@@ -38,8 +38,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-base/80 backdrop-blur-xl border-b border-stroke">
-      <div className="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 h-14 flex items-center justify-between">
+    <nav style={{ position: "sticky", top: 0, zIndex: 50, backgroundColor: "rgba(6,6,14,0.8)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+      <div style={{ maxWidth: "52rem", marginLeft: "auto", marginRight: "auto", paddingLeft: "1.5rem", paddingRight: "1.5rem", height: "3.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center group-hover:shadow-[0_0_16px_rgba(186,255,41,0.3)] transition-shadow">

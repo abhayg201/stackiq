@@ -38,28 +38,41 @@ function SmartTile({
   return (
     <button
       onClick={onClick}
-      className={`group relative flex flex-col items-center gap-1.5 p-3.5 rounded-xl border transition-all duration-200 text-center ${
-        selected
-          ? "bg-accent/8 border-accent/30 shadow-[0_0_20px_rgba(186,255,41,0.08)]"
-          : "bg-white/[0.02] border-white/[0.06] hover:border-white/[0.1] hover:bg-white/[0.03]"
-      }`}
+      style={{
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "0.375rem",
+        padding: "0.875rem 0.5rem",
+        borderRadius: "0.75rem",
+        border: selected ? "1px solid rgba(186,255,41,0.3)" : "1px solid rgba(255,255,255,0.06)",
+        backgroundColor: selected ? "rgba(186,255,41,0.06)" : "rgba(255,255,255,0.02)",
+        cursor: "pointer",
+        transition: "all 0.2s",
+        textAlign: "center",
+        boxShadow: selected ? "0 0 20px rgba(186,255,41,0.06)" : "none",
+      }}
     >
-      <span className="text-xl leading-none">{tile.emoji}</span>
+      <span style={{ fontSize: "1.25rem", lineHeight: 1 }}>{tile.emoji}</span>
       <span
-        className={`text-xs font-medium leading-tight ${
-          selected ? "text-accent" : "text-fg/90"
-        }`}
+        style={{
+          fontSize: "0.75rem",
+          fontWeight: 500,
+          lineHeight: 1.3,
+          color: selected ? "#BAFF29" : "rgba(240,238,248,0.9)",
+        }}
       >
         {tile.label}
       </span>
       {tile.description && (
-        <span className="text-[10px] text-muted/60 leading-tight">
+        <span style={{ fontSize: "0.625rem", color: "rgba(82,81,106,0.6)", lineHeight: 1.3 }}>
           {tile.description}
         </span>
       )}
       {selected && (
-        <div className="absolute -top-1.5 -right-1.5">
-          <CheckCircle2 size={15} className="text-accent fill-accent/20" />
+        <div style={{ position: "absolute", top: "-6px", right: "-6px" }}>
+          <CheckCircle2 size={15} color="#BAFF29" />
         </div>
       )}
     </button>
@@ -70,17 +83,33 @@ function SmartTile({
 
 function TypingIndicator() {
   return (
-    <div className="flex gap-2.5 items-end animate-msg-in">
-      <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center shrink-0">
-        <Sparkles size={13} className="text-accent" />
+    <div style={{ display: "flex", gap: "0.625rem", alignItems: "flex-end" }} className="animate-msg-in">
+      <div
+        style={{
+          width: "28px",
+          height: "28px",
+          borderRadius: "0.5rem",
+          backgroundColor: "rgba(186,255,41,0.12)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+        }}
+      >
+        <Sparkles size={13} color="#BAFF29" />
       </div>
-      <div className="bg-white/[0.04] rounded-2xl rounded-bl-md px-4 py-3">
-        <div className="flex gap-1.5">
+      <div style={{ backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "1rem 1rem 1rem 0.375rem", padding: "0.75rem 1rem" }}>
+        <div style={{ display: "flex", gap: "0.375rem" }}>
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="w-1.5 h-1.5 bg-accent/50 rounded-full"
-              style={{ animation: `typeDot 1s ease ${i * 0.2}s infinite` }}
+              style={{
+                width: "6px",
+                height: "6px",
+                backgroundColor: "rgba(186,255,41,0.5)",
+                borderRadius: "50%",
+                animation: `typeDot 1s ease ${i * 0.2}s infinite`,
+              }}
             />
           ))}
         </div>
@@ -102,16 +131,15 @@ function ProgressBar({
 }) {
   const pct = phase === "ai" ? 100 : (current / total) * 100;
   return (
-    <div className="flex items-center gap-3 px-5 py-2.5 border-b border-white/[0.04]">
-      <div className="flex-1 h-1 bg-white/[0.04] rounded-full overflow-hidden">
+    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.625rem 1.25rem", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+      <div style={{ flex: 1, height: "4px", backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "2px", overflow: "hidden" }}>
         <div
-          className="h-full bg-accent rounded-full transition-all duration-500"
-          style={{ width: `${pct}%` }}
+          style={{ height: "100%", width: `${pct}%`, backgroundColor: "#BAFF29", borderRadius: "2px", transition: "width 0.5s ease" }}
         />
       </div>
-      <span className="text-muted text-[10px] font-mono shrink-0">
+      <span style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,1)", flexShrink: 0 }}>
         {phase === "ai" ? (
-          <span className="text-accent flex items-center gap-1">
+          <span style={{ color: "#BAFF29", display: "flex", alignItems: "center", gap: "0.25rem" }}>
             <Sparkles size={10} /> AI MODE
           </span>
         ) : (
@@ -217,7 +245,6 @@ export default function ChatPage() {
         setTileStep(nextStep);
       }, 500);
     } else {
-      // All tiles done -> AI phase
       setTyping(true);
       setTimeout(() => {
         setMessages((m) => [
@@ -288,7 +315,6 @@ export default function ChatPage() {
         { role: "assistant", content: data.message },
       ]);
 
-      // Detect when AI provides final recommendations
       const lower = data.message.toLowerCase();
       if (
         lower.includes("stack") &&
@@ -311,22 +337,67 @@ export default function ChatPage() {
   const currentTileStep = phase === "tiles" ? TILE_STEPS[tileStep] : null;
 
   return (
-    <div className="min-h-screen bg-base flex flex-col">
+    <div style={{ minHeight: "100vh", backgroundColor: "#06060E", display: "flex", flexDirection: "column" }}>
       <Navbar />
 
-      <div className="flex-1 flex justify-center px-4 sm:px-6 py-4 sm:py-6">
-        <div className="w-full max-w-2xl flex flex-col">
-          {/* Chat Container */}
-          <div className="bg-card border border-white/[0.06] rounded-2xl flex-1 flex flex-col overflow-hidden max-h-[calc(100vh-120px)]">
+      {/* Centered chat container */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          padding: "1.5rem",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "42rem",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {/* Chat card */}
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              backgroundColor: "rgba(17,17,34,0.6)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: "1rem",
+              maxHeight: "calc(100vh - 120px)",
+            }}
+          >
             {/* Header */}
-            <div className="px-5 py-3.5 border-b border-white/[0.04] flex items-center gap-3">
-              <div className="w-8 h-8 bg-accent/15 rounded-xl flex items-center justify-center shrink-0">
-                <Sparkles size={15} className="text-accent" />
+            <div
+              style={{
+                padding: "0.875rem 1.25rem",
+                borderBottom: "1px solid rgba(255,255,255,0.04)",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+              }}
+            >
+              <div
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  backgroundColor: "rgba(186,255,41,0.12)",
+                  borderRadius: "0.75rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}
+              >
+                <Sparkles size={15} color="#BAFF29" />
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-fg text-sm font-semibold">StackIQ</div>
-                <div className="text-accent/70 text-[10px] font-mono flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full inline-block animate-pulse" />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "#F0EEF8" }}>StackIQ</div>
+                <div style={{ fontSize: "0.625rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(186,255,41,0.6)", display: "flex", alignItems: "center", gap: "0.375rem" }}>
+                  <span style={{ width: "6px", height: "6px", backgroundColor: "#BAFF29", borderRadius: "50%", display: "inline-block" }} />
                   {phase === "done"
                     ? "Stack ready"
                     : phase === "ai"
@@ -337,20 +408,25 @@ export default function ChatPage() {
 
               {/* Profile chips */}
               {Object.keys(userProfile).length > 0 && (
-                <div className="hidden sm:flex gap-1">
+                <div style={{ display: "flex", gap: "0.25rem" }}>
                   {Object.keys(userProfile).slice(0, 3).map((key) => (
                     <div
                       key={key}
-                      className="bg-accent/8 border border-accent/20 rounded-md px-2 py-0.5"
+                      style={{
+                        backgroundColor: "rgba(186,255,41,0.06)",
+                        border: "1px solid rgba(186,255,41,0.15)",
+                        borderRadius: "0.25rem",
+                        padding: "0.125rem 0.5rem",
+                      }}
                     >
-                      <span className="text-accent/80 text-[9px] font-mono uppercase">
+                      <span style={{ color: "rgba(186,255,41,0.7)", fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace", textTransform: "uppercase" }}>
                         {key.split("_")[0]}
                       </span>
                     </div>
                   ))}
                   {Object.keys(userProfile).length > 3 && (
-                    <div className="bg-white/[0.03] border border-white/[0.06] rounded-md px-2 py-0.5">
-                      <span className="text-muted text-[9px] font-mono">
+                    <div style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "0.25rem", padding: "0.125rem 0.5rem" }}>
+                      <span style={{ color: "rgba(82,81,106,1)", fontSize: "0.5625rem", fontFamily: "'IBM Plex Mono', monospace" }}>
                         +{Object.keys(userProfile).length - 3}
                       </span>
                     </div>
@@ -367,24 +443,60 @@ export default function ChatPage() {
             />
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 sm:px-5 py-4 space-y-3">
+            <div
+              style={{
+                flex: 1,
+                overflowY: "auto",
+                padding: "1.25rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.875rem",
+              }}
+            >
               {messages.map((msg, i) => {
                 if (msg.role === "bot") {
                   return (
-                    <div key={i} className="flex gap-2.5 items-start animate-msg-in">
-                      <div className="w-6 h-6 rounded-md bg-accent/12 flex items-center justify-center shrink-0 mt-0.5">
-                        <Sparkles size={11} className="text-accent" />
+                    <div key={i} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }} className="animate-msg-in">
+                      <div
+                        style={{
+                          width: "26px",
+                          height: "26px",
+                          borderRadius: "0.375rem",
+                          backgroundColor: "rgba(186,255,41,0.1)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                          marginTop: "2px",
+                        }}
+                      >
+                        <Sparkles size={11} color="#BAFF29" />
                       </div>
-                      <div className="bg-white/[0.03] rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
+                      <div
+                        style={{
+                          backgroundColor: "rgba(255,255,255,0.03)",
+                          borderRadius: "1rem 1rem 1rem 0.375rem",
+                          padding: "0.75rem 1rem",
+                          maxWidth: "85%",
+                        }}
+                      >
                         <ChatMarkdown content={msg.content} />
                       </div>
                     </div>
                   );
                 }
                 return (
-                  <div key={i} className="flex justify-end animate-msg-in">
-                    <div className="bg-accent/8 border border-accent/15 rounded-2xl rounded-tr-md px-4 py-3 max-w-[80%]">
-                      <p className="text-fg text-[13px] leading-relaxed">{msg.content}</p>
+                  <div key={i} style={{ display: "flex", justifyContent: "flex-end" }} className="animate-msg-in">
+                    <div
+                      style={{
+                        backgroundColor: "rgba(186,255,41,0.06)",
+                        border: "1px solid rgba(186,255,41,0.12)",
+                        borderRadius: "1rem 1rem 0.375rem 1rem",
+                        padding: "0.75rem 1rem",
+                        maxWidth: "80%",
+                      }}
+                    >
+                      <p style={{ fontSize: "0.8125rem", color: "#F0EEF8", lineHeight: 1.6 }}>{msg.content}</p>
                     </div>
                   </div>
                 );
@@ -394,11 +506,19 @@ export default function ChatPage() {
 
               {/* Smart Tiles */}
               {phase === "tiles" && currentTileStep && !typing && (
-                <div className="animate-msg-in pl-8 space-y-3">
+                <div style={{ paddingLeft: "2.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }} className="animate-msg-in">
                   {currentTileStep.subtitle && (
-                    <p className="text-muted/60 text-[11px] font-mono">{currentTileStep.subtitle}</p>
+                    <p style={{ fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(82,81,106,0.6)" }}>
+                      {currentTileStep.subtitle}
+                    </p>
                   )}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(3, 1fr)",
+                      gap: "0.5rem",
+                    }}
+                  >
                     {currentTileStep.tiles?.map((tile) => (
                       <SmartTile
                         key={tile.id}
@@ -412,7 +532,22 @@ export default function ChatPage() {
                   {selectedTiles.length > 0 && (
                     <button
                       onClick={confirmTileSelection}
-                      className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-[11px] font-bold tracking-wider px-5 py-2.5 rounded-lg transition-all"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        alignSelf: "flex-start",
+                        gap: "0.5rem",
+                        backgroundColor: "#BAFF29",
+                        color: "#06060E",
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        fontSize: "0.6875rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.08em",
+                        padding: "0.625rem 1.25rem",
+                        borderRadius: "0.5rem",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
                     >
                       {currentTileStep.type === "tiles-multi"
                         ? `CONTINUE (${selectedTiles.length})`
@@ -425,18 +560,41 @@ export default function ChatPage() {
 
               {/* Done state -> route to /stack */}
               {phase === "done" && (
-                <div className="animate-msg-in pl-8">
-                  <div className="bg-accent/[0.04] border border-accent/15 rounded-xl p-5 text-center">
-                    <Sparkles className="text-accent mx-auto mb-3" size={22} />
-                    <p className="text-fg text-sm font-semibold mb-1">
+                <div style={{ paddingLeft: "2.25rem" }} className="animate-msg-in">
+                  <div
+                    style={{
+                      backgroundColor: "rgba(186,255,41,0.03)",
+                      border: "1px solid rgba(186,255,41,0.12)",
+                      borderRadius: "0.75rem",
+                      padding: "1.5rem",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Sparkles size={22} color="#BAFF29" style={{ margin: "0 auto 0.75rem" }} />
+                    <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "#F0EEF8", marginBottom: "0.25rem" }}>
                       Your personalised stack is ready
                     </p>
-                    <p className="text-muted text-xs mb-4">
-                      {4} supplements matched to your profile with detailed dosing and evidence.
+                    <p style={{ fontSize: "0.75rem", color: "rgba(82,81,106,1)", marginBottom: "1rem" }}>
+                      4 supplements matched with detailed dosing and evidence.
                     </p>
                     <button
                       onClick={() => router.push("/stack")}
-                      className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-[#06060E] font-mono text-[11px] font-bold tracking-wider px-6 py-3 rounded-lg transition-all shadow-[0_0_24px_rgba(186,255,41,0.12)]"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        backgroundColor: "#BAFF29",
+                        color: "#06060E",
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        fontSize: "0.6875rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.08em",
+                        padding: "0.75rem 1.5rem",
+                        borderRadius: "0.5rem",
+                        border: "none",
+                        cursor: "pointer",
+                        boxShadow: "0 0 24px rgba(186,255,41,0.1)",
+                      }}
                     >
                       VIEW MY STACK
                       <ArrowRight size={13} />
@@ -450,21 +608,40 @@ export default function ChatPage() {
 
             {/* Input (AI phase) */}
             {phase === "ai" && (
-              <div className="px-4 sm:px-5 py-3 border-t border-white/[0.04]">
-                <div className="flex gap-2">
+              <div style={{ padding: "0.75rem 1.25rem", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+                <div style={{ display: "flex", gap: "0.5rem" }}>
                   <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && sendAIMessage()}
                     placeholder="Type your answer\u2026"
-                    className="flex-1 bg-white/[0.02] border border-white/[0.06] focus:border-accent/30 rounded-xl px-4 py-3 text-fg text-sm outline-none transition-colors placeholder:text-muted/40"
                     disabled={aiLoading}
+                    style={{
+                      flex: 1,
+                      backgroundColor: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      borderRadius: "0.75rem",
+                      padding: "0.75rem 1rem",
+                      color: "#F0EEF8",
+                      fontSize: "0.875rem",
+                      outline: "none",
+                      fontFamily: "'Epilogue', sans-serif",
+                    }}
                   />
                   <button
                     onClick={sendAIMessage}
                     disabled={aiLoading || !inputValue.trim()}
-                    className="bg-accent hover:bg-accent/90 disabled:opacity-20 text-[#06060E] p-3 rounded-xl transition-all"
+                    style={{
+                      backgroundColor: "#BAFF29",
+                      color: "#06060E",
+                      padding: "0.75rem",
+                      borderRadius: "0.75rem",
+                      border: "none",
+                      cursor: "pointer",
+                      opacity: aiLoading || !inputValue.trim() ? 0.2 : 1,
+                      transition: "opacity 0.2s",
+                    }}
                   >
                     {aiLoading ? (
                       <Loader2 size={16} className="animate-spin" />
