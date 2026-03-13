@@ -1,34 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
-import { LogOut, Menu, X } from "lucide-react";
+import { LogOut, Menu, X, Clock } from "lucide-react";
 
-export default function Navbar() {
+interface NavbarProps {
+  onToggleSidebar?: () => void;
+}
+
+export default function Navbar({ onToggleSidebar }: NavbarProps = {}) {
   const [user, setUser] = useState<User | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const supabase = createClient();
+  const isChat = pathname === "/chat";
 
   useEffect(() => {
     const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
     };
     getUser();
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();
+  }, []);
+
+  // Responsive check
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   const handleSignOut = async () => {
@@ -51,74 +62,91 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-3">
-          {user ? (
-            <>
-              <Link
-                href="/chat"
-                style={{ padding: "0.375rem 1rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.08em", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", textDecoration: "none" }}
-              >
-                CHAT
-              </Link>
-              <Link
-                href="/stack"
-                style={{ padding: "0.375rem 1rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.08em", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", textDecoration: "none" }}
-              >
-                MY STACK
-              </Link>
-              <div style={{ width: "1px", height: "1.25rem", backgroundColor: "rgba(0,0,0,0.08)", marginLeft: "0.25rem", marginRight: "0.25rem" }} />
-              <span style={{ color: "#6B7280", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", maxWidth: "140px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {user.email}
-              </span>
-              <button
-                onClick={handleSignOut}
-                style={{ padding: "0.375rem", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", background: "none", cursor: "pointer" }}
-                title="Sign out"
-              >
-                <LogOut size={14} />
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/auth/login"
-                style={{ padding: "0.375rem 1rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.08em", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", textDecoration: "none" }}
-              >
-                LOG IN
-              </Link>
-              <Link
-                href="/auth/signup"
-                style={{
-                  padding: "0.5rem 1.25rem",
-                  fontSize: "0.6875rem",
-                  fontFamily: "'IBM Plex Mono', monospace",
-                  letterSpacing: "0.08em",
-                  fontWeight: 700,
-                  color: "#FFFFFF",
-                  backgroundColor: "#16A34A",
-                  borderRadius: "0.5rem",
-                  textDecoration: "none",
-                }}
-              >
-                GET STARTED
-              </Link>
-            </>
-          )}
-        </div>
+        {!isMobile && (
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            {user ? (
+              <>
+                <Link
+                  href="/chat"
+                  style={{ padding: "0.375rem 1rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.08em", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", textDecoration: "none" }}
+                >
+                  CHAT
+                </Link>
+                <Link
+                  href="/stack"
+                  style={{ padding: "0.375rem 1rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.08em", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", textDecoration: "none" }}
+                >
+                  MY STACK
+                </Link>
+
+                {/* Sidebar toggle (only on chat page) */}
+                {isChat && onToggleSidebar && (
+                  <button
+                    onClick={onToggleSidebar}
+                    style={{ padding: "0.375rem", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", background: "none", cursor: "pointer" }}
+                    title="Consultation history"
+                  >
+                    <Clock size={14} />
+                  </button>
+                )}
+
+                <div style={{ width: "1px", height: "1.25rem", backgroundColor: "rgba(0,0,0,0.08)", marginLeft: "0.25rem", marginRight: "0.25rem" }} />
+                <span style={{ color: "#6B7280", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace", maxWidth: "140px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {user.email}
+                </span>
+                <button
+                  onClick={handleSignOut}
+                  style={{ padding: "0.375rem", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", background: "none", cursor: "pointer" }}
+                  title="Sign out"
+                >
+                  <LogOut size={14} />
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/auth/login"
+                  style={{ padding: "0.375rem 1rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.08em", color: "#6B7280", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "0.375rem", textDecoration: "none" }}
+                >
+                  LOG IN
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  style={{ padding: "0.5rem 1.25rem", fontSize: "0.6875rem", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.08em", fontWeight: 700, color: "#FFFFFF", backgroundColor: "#16A34A", borderRadius: "0.5rem", textDecoration: "none" }}
+                >
+                  GET STARTED
+                </Link>
+              </>
+            )}
+          </div>
+        )}
 
         {/* Mobile toggle */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{ padding: "0.5rem", color: "#6B7280", background: "none", border: "none", cursor: "pointer" }}
-          className="md:hidden"
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {isMobile && (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            {/* Sidebar toggle on mobile (chat page only) */}
+            {isChat && onToggleSidebar && (
+              <button
+                onClick={onToggleSidebar}
+                style={{ padding: "0.5rem", color: "#6B7280", background: "none", border: "none", cursor: "pointer" }}
+                title="Consultation history"
+              >
+                <Clock size={20} />
+              </button>
+            )}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{ padding: "0.5rem", color: "#6B7280", background: "none", border: "none", cursor: "pointer" }}
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden animate-fade-in" style={{ borderTop: "1px solid rgba(0,0,0,0.06)", backgroundColor: "#FFFFFF" }}>
+      {menuOpen && isMobile && (
+        <div style={{ borderTop: "1px solid rgba(0,0,0,0.06)", backgroundColor: "#FFFFFF" }}>
           <div style={{ padding: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             {user ? (
               <>
