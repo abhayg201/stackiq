@@ -8,62 +8,44 @@ const openai = new OpenAI({
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, userProfile } = await req.json();
+    const { messages, conversationId } = await req.json();
 
-    // Build context from user's tile selections
-    const profileContext = userProfile
-      ? `
-USER PROFILE (collected via smart tiles):
-- Goals: ${Array.isArray(userProfile.goals) ? userProfile.goals.join(", ") : userProfile.goals || "Not specified"}
-- Diet: ${userProfile.diet || "Not specified"}
-- Age Range: ${userProfile.age_range || "Not specified"}
-- Biological Sex: ${userProfile.sex || "Not specified"}
-- Exercise Frequency: ${userProfile.exercise || "Not specified"}
-- Stress Level: ${userProfile.stress_level || "Not specified"}
-- Sleep Quality: ${userProfile.sleep_quality || "Not specified"}
-- Budget: ${userProfile.budget || "Not specified"}
-`
-      : "";
+    // Log for debugging (conversationId is for tracking only)
+    if (conversationId) {
+      console.log(`[chat] conversation=${conversationId}, messages=${messages?.length || 0}`);
+    }
 
     const systemMessage = {
       role: "system" as const,
-      content: AI_SYSTEM_PROMPT + "\n\n" + profileContext,
+      content: AI_SYSTEM_PROMPT,
     };
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [systemMessage, ...messages],
       temperature: 0.7,
-      max_tokens: 800,
+      max_tokens: 1500,
     });
 
     const aiMessage = response.choices[0]?.message;
 
     return NextResponse.json({
-      message: aiMessage?.content || "I couldn't generate a response. Please try again.",
-      role: "assistant",
+      content: aiMessage?.content || "I couldn't generate a response. Please try again.",
     });
   } catch (error: unknown) {
     console.error("Chat API error:", error);
 
-    // Check if it's an API key issue
+    // NOTE: Error responses use the same { content } shape for simplicity.
+    // Clients MUST check response.ok / status code before treating content as a valid assistant message.
     if (error instanceof Error && error.message?.includes("API key")) {
       return NextResponse.json(
-        {
-          message:
-            "OpenAI API key not configured. Please add your OPENAI_API_KEY to .env.local",
-          role: "assistant",
-        },
+        { content: "OpenAI API key not configured. Please add OPENAI_API_KEY to .env.local" },
         { status: 500 }
       );
     }
 
     return NextResponse.json(
-      {
-        message:
-          "Something went wrong. Please try again.",
-        role: "assistant",
-      },
+      { content: "Something went wrong with the AI service. Please try again." },
       { status: 500 }
     );
   }
